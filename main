@@ -4,82 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Health AI Advisor</title>
-  <style>
-    body { font-family: Arial; margin: 0; padding: 1rem; background: #f0f4f8; }
-    .chat-box { max-width: 600px; margin: auto; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-    .chat-log { height: 300px; overflow-y: auto; margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem; border-radius: 4px; }
-    .chat-entry { margin: 0.5rem 0; }
-    .user { font-weight: bold; color: blue; }
-    .ai { font-weight: bold; color: green; }
-    input, button { padding: 0.5rem; font-size: 1rem; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="chat-box">
-    <h2>💬 Health AI Advisor</h2>
-    <div id="health-info">
-      <strong>Heart Rate:</strong> 78 bpm<br/>
-      <strong>Sleep:</strong> 6.5 hrs<br/>
-      <strong>Steps:</strong> 5,200
-    </div>
-    <hr/>
-    <div class="chat-log" id="chat-log"></div>
-    <input type="text" id="user-input" placeholder="Ask about your health..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-
-  <script>
-    const chatLog = document.getElementById('chat-log');
-
-    async function sendMessage() {
-      const userInput = document.getElementById('user-input');
-      const message = userInput.value;
-      if (!message) return;
-
-      appendMessage("You", message, "user");
-      userInput.value = "";
-
-      const healthData = {
-        heartRate: 78,
-        sleep: 6.5,
-        steps: 5200
-      };
-
-      const prompt = `My current health data is: 
-      - Heart rate: ${healthData.heartRate} bpm
-      - Sleep: ${healthData.sleep} hours
-      - Steps: ${healthData.steps}
-      
-      Based on this data, answer the following: ${message}`;
-
-      const response = await getGPTResponse(prompt);
-      appendMessage("AI", response, "ai");
-    }
-
-    function appendMessage(sender, text, className) {
-      const entry = document.createElement("div");
-      entry.className = `chat-entry ${className}`;
-      entry.innerHTML = `<span class="${className}">${sender}:</span> ${text}`;
-      chatLog.appendChild(entry);
-      chatLog.scrollTop = chatLog.scrollHeight;
-    }
-
-    async function getGPTResponse(prompt) {
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "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" 
-        },
-        body: JSON.stringify({
-          model: "gpt-4",
-          messages: [{ role: "user", content: prompt }]
-        })
-      });
-
-      const data = await response.json();
-      return data.choices[0].message.content.trim();
-    }
-  </script>
-</body>
+    <header>
+        <h1>Study Scheduler</h1>
+        <p class="subtitle">Organize your study sessions efficiently.</p>
+<body>
+   <p>&copy; 2025 Phillip Chou</p>
+    </footer>
+    <script src="script.js"></script>
 </html>
