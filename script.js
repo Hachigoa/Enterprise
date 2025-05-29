@@ -73,7 +73,7 @@ window.addEventListener("load", () => {
 });
 
 async function getGeminiResponse(prompt) {
-  const res = await fetch("https://your-replit-username.gemini-backend.repl.co/api/gemini", {
+  const res = await fetch("https://replit.com/@phillipchou26/Ai-Backend?v=1", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt })
