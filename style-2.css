@@ -1,0 +1,93 @@
+{
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Container with 2 halves */
+    .page-container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+    }
+
+    /* Left half with background image */
+    .half-page-bg {
+      flex: 1;
+      background-image: url("https://tailwindflex.com/storage/thumbnails/frorest-green-gradient/canvas.min.webp?v=1");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Right half white */
+    .other-half {
+      flex: 1;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      color: #333;
+    }
+
+    /* Header on right side */
+    header h1 {
+      margin: 0 0 30px 0;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      color: #222;
+    }
+
+    /* Form styling */
+    .signup-form {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .signup-form h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .signup-form input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .signup-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #2a7a2a;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-form button:hover {
+      background-color: #246624;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #f0f0f0;
+      font-size: 0.9rem;
+      color: #555;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+    }
