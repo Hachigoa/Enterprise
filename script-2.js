@@ -28,5 +28,5 @@ document.querySelector('form').addEventListener('submit', function(e) {
     alert("Signup successful! Redirecting to homepage...");
 
     // Redirect to homepage or dashboard (change the URL as needed)
-    window.location.href = "main.html"; 
+    window.location.href = "index.html"; 
   });
