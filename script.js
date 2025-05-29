@@ -71,3 +71,15 @@ window.addEventListener("load", () => {
     updateUI(email);
   }
 });
+
+async function getGeminiResponse(prompt) {
+  const res = await fetch("https://your-replit-username.gemini-backend.repl.co/api/gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  console.log(data);
+}
+
