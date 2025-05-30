@@ -72,8 +72,9 @@ window.addEventListener("load", () => {
   }
 });
 
+// Ai Message Responder
 async function getGeminiResponse(prompt) {
-  const res = await fetch("https://replit.com/@phillipchou26/Ai-Backend?v=1", {
+  const res = await fetch("", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt })
