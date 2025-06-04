@@ -93,7 +93,7 @@ window.addEventListener("load", () => {
 async function askAI(promptText) {
   try {
     // Replace with your actual deployed URL, e.g.:
-    // const BASE_URL = "https://enterprise-app.onrender.com";
+    // const BASE_URL = "https://enterprise-zc5x.onrender.com";
     const BASE_URL = "https://enterprise-zc5x.onrender.com";
 
     const response = await fetch(`${BASE_URL}/ask`, {
@@ -131,3 +131,4 @@ window.addEventListener("load", () => {
     aiResponse.innerText = answer;
   });
 });
+
