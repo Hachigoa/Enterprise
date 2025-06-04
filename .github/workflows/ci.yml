@@ -1,24 +1,33 @@
 # .github/workflows/ci.yml
 
+name: CI/CD Pipeline
+
 on:
-  pull_request:
   push:
     branches: [main]
+  pull_request:
 
 jobs:
   ci:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test
-        run: |
-          npm install
-          npm run test
 
-      - name: Deploy
-        # Only run this step if the branch is main
-        if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Deploy to Render
+        if: github.ref == 'refs/heads/main' && success()  # Only on main and if previous steps pass
         env:
-          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl "$deploy_url"
+          if [ -z "$DEPLOY_URL" ]; then
+            echo "Render deploy hook URL is missing"; exit 1;
+          fi
+          echo "Triggering Render deploy..."
+          curl -fsSL "$DEPLOY_URL"
