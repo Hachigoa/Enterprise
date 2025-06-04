@@ -76,9 +76,7 @@ function updateUI(email) {
   }
 }
 
-// Simulated AI response
-function generateAIResponse(email) {
-  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
+
 }
 
 // On page load
@@ -92,14 +90,44 @@ window.addEventListener("load", () => {
 });
 
 // Ai Message Responder
-async function getGeminiResponse(prompt) {
-  const res = await fetch("", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt })
-  });
+async function askAI(promptText) {
+  try {
+    // Replace with your actual deployed URL, e.g.:
+    // const BASE_URL = "https://enterprise-app.onrender.com";
+    const BASE_URL = "https://enterprise-zc5x.onrender.com";
 
-  const data = await res.json();
-  console.log(data);
+    const response = await fetch(`${BASE_URL}/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: promptText })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      console.error("Backend error:", data.error);
+      return `Error: ${data.error}`;
+    }
+    return data.answer;
+  } catch (err) {
+    console.error("Network error:", err);
+    return "Network error. See console.";
+  }
 }
 
+window.addEventListener("load", () => {
+  const aiSubmit   = document.getElementById("ai-submit");
+  const aiPrompt   = document.getElementById("ai-prompt");
+  const aiResponse = document.getElementById("ai-response");
+
+  if (!aiSubmit || !aiPrompt || !aiResponse) return;
+
+  aiSubmit.addEventListener("click", async () => {
+    const text = aiPrompt.value.trim();
+    if (!text) {
+      aiResponse.innerText = "Please type a prompt first.";
+      return;
+    }
+    aiResponse.innerText = "Thinking… 🤖";
+    const answer = await askAI(text);
+    aiResponse.innerText = answer;
+  });
+});
