@@ -85,3 +85,96 @@ async function getGeminiResponse(prompt) {
 }
 
 // Login Navigation Bar No Longer Need To Logout
+// === Utility Functions ===
+function setCookie(name, value, days = 7) {
+  const maxAge = days * 24 * 60 * 60;
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}`;
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([.$?*|{}()\\[\\]\\\\\\/\\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
+
+function deleteCookie(name) {
+  document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+}
+
+// === Update UI ===
+function updateUI(username) {
+  const welcomeMessage = document.getElementById("welcome-message");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const openModal = document.getElementById("openModal");
+
+  if (welcomeMessage) welcomeMessage.innerText = `Welcome back, ${username} 👋`;
+  if (logoutBtn) logoutBtn.style.display = "inline-block";
+  if (openModal) openModal.style.display = "none";
+}
+
+// === On Page Load ===
+window.onload = () => {
+  const isLoggedIn = getCookie("loggedIn");
+  const username = getCookie("username");
+
+  if (isLoggedIn === "true" && username) {
+    updateUI(username);
+  } else {
+    const modal = document.getElementById("loginModal");
+    if (modal) modal.style.display = "flex"; // Show login modal if not logged in
+  }
+};
+
+// === DOM Content Loaded (Modal + Form Logic) ===
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("loginModal");
+  const openModal = document.getElementById("openModal");
+  const closeModal = document.getElementById("closeModal");
+  const loginForm = document.getElementById("loginForm");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (openModal) {
+    openModal.addEventListener("click", () => {
+      if (modal) modal.style.display = "flex";
+    });
+  }
+
+  if (closeModal) {
+    closeModal.addEventListener("click", () => {
+      if (modal) modal.style.display = "none";
+    });
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
+
+  if (loginForm) {
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value;
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (users[email] && users[email].password === password) {
+        setCookie("loggedIn", "true");
+        setCookie("username", email);
+        modal.style.display = "none";
+        updateUI(email);
+        location.reload(); // Force UI refresh across page
+      } else {
+        alert("Invalid email or password.");
+      }
+    });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      deleteCookie("loggedIn");
+      deleteCookie("username");
+      location.href = "index.html"; // Redirect to home or login
+    });
+  }
+});
