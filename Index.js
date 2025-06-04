@@ -25,7 +25,7 @@ app.post("/ask", async (req, res) => {
   try {
     // Replace the URL below with your actual AI provider’s endpoint
     const aiResponse = await axios.post(
-      "https://api.your‐ai.com/v1/query",
+      "https://generativelanguage.googleapis.com/v1beta2/models/​gemini-2.0-flash:generateText?key=YOUR_API_KEY",
       { prompt },
       {
         headers: {
