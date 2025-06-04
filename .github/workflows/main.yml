@@ -23,5 +23,4 @@ jobs:
       - name: Smoke-test that Index.js loads
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: |
-          node -e "require('./Index.js'); console.log('Loaded OK'); process.exit(0)"
+        run: npm run smoke-test
