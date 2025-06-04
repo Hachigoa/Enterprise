@@ -84,10 +84,13 @@ async function getGeminiResponse(prompt) {
   console.log(data);
 }
 
-    window.addEventListener("load", () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      const email = localStorage.getItem("loggedInUser");
-      if (isLoggedIn === "true" && email) {
-        updateUI(email); // This function should be in script.js
-      }
-    });
+// When user logs in:
+localStorage.setItem('user', JSON.stringify(userObject));
+
+// On every page load:
+const user = JSON.parse(localStorage.getItem('user'));
+if (user) {
+  // User is signed in - update the UI
+} else {
+  // Redirect to login page or show sign-in prompt
+}
