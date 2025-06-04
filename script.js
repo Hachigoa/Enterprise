@@ -50,11 +50,30 @@ logoutBtn.addEventListener("click", () => {
 
 // Update UI when logged in
 function updateUI(email) {
-  welcomeMessage.innerText = `Welcome back, ${email} 👋`;
-  aiResponse.innerText = generateAIResponse(email);
-  userStats.style.display = "block";
-  openModal.style.display = "none";
-  logoutBtn.style.display = "inline-block";
+  if (welcomeMessage) {
+    welcomeMessage.innerText = `Welcome back, ${email} 👋`;
+  }
+
+  if (aiResponse) {
+    aiResponse.innerText = generateAIResponse(email);
+  }
+
+  if (userStats) {
+    userStats.style.display = "block";
+  }
+
+  if (openModal) {
+    openModal.style.display = "none";
+  }
+
+  if (logoutBtn) {
+    logoutBtn.style.display = "inline-block";
+  }
+
+  const loginBtn = document.getElementById("openModal");
+  if (loginBtn) {
+    loginBtn.style.display = "none";
+  }
 }
 
 // Simulated AI response
@@ -83,38 +102,4 @@ async function getGeminiResponse(prompt) {
   const data = await res.json();
   console.log(data);
 }
-// Update UI when logged in
-function updateUI(email) {
-  welcomeMessage.innerText = `Welcome back, ${email} 👋`;
-  aiResponse.innerText = generateAIResponse(email);
-  userStats.style.display = "block";
-  openModal.style.display = "none";
-  logoutBtn.style.display = "inline-block";
-}
 
-// Simulated AI response
-function generateAIResponse(email) {
-  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
-}
-
-function updateUI(email) {
-  if (welcomeMessage) {
-    welcomeMessage.innerText = `Welcome back, ${email} 👋`;
-  }
-
-  if (aiResponse) {
-    aiResponse.innerText = generateAIResponse(email);
-  }
-
-  if (userStats) {
-    userStats.style.display = "block";
-  }
-
-  if (openModal) {
-    openModal.style.display = "none";
-  }
-
-  if (logoutBtn) {
-    logoutBtn.style.display = "inline-block";
-  }
-}
