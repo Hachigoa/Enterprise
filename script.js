@@ -1,4 +1,4 @@
-const modal = document.getElementById("loginModal");More actions
+const modal = document.getElementById("loginModal");
 const openModal = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 const loginForm = document.getElementById("loginForm");
@@ -7,13 +7,18 @@ const welcomeMessage = document.getElementById("welcome-message");
 const aiResponse = document.getElementById("ai-response");
 const userStats = document.getElementById("user-stats");
 
+// Simulated AI welcome message
+function generateAIResponse(email) {
+  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
+}
+
 // Show login modal
-openModal.addEventListener("click", () => {
+openModal?.addEventListener("click", () => {
   modal.style.display = "flex";
 });
 
 // Close login modal
-closeModal.addEventListener("click", () => {
+closeModal?.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
@@ -24,7 +29,7 @@ window.addEventListener("click", (e) => {
 });
 
 // Handle login
-loginForm.addEventListener("submit", function (e) {
+loginForm?.addEventListener("submit", function (e) {
   e.preventDefault();
   const email = e.target.email.value.trim();
   const password = e.target.password.value;
@@ -42,43 +47,40 @@ loginForm.addEventListener("submit", function (e) {
 });
 
 // Logout
-logoutBtn.addEventListener("click", () => {
+logoutBtn?.addEventListener("click", () => {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("loggedInUser");
-  location.reload();More actions
+  location.reload();
 });
 
 // Update UI when logged in
 function updateUI(email) {
-if (welcomeMessage) {Add commentMore actions
-    welcomeMessage.innerText = `Welcome back, ${email} 👋`;
-  }
+  welcomeMessage.innerText = `Welcome back, ${email} 👋`;
 
   if (aiResponse) {
     aiResponse.innerText = generateAIResponse(email);
   }
 
-  if (userStats) {
-    userStats.style.display = "block";
-  }
-
-  if (openModal) {
-    openModal.style.display = "none";
-  }
-
-  if (logoutBtn) {
-    logoutBtn.style.display = "inline-block";
-  }
-
-  const loginBtn = document.getElementById("openModal");
-  if (loginBtn) {
-    loginBtn.style.display = "none";
-  }
+  userStats.style.display = "block";
+  openModal.style.display = "none";
+  logoutBtn.style.display = "inline-block";
 }
 
-// Simulated AI response
-function generateAIResponse(email) {
-  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
+// AI message responder (use your real API endpoint)
+async function getGeminiResponse(prompt) {
+  try {
+    const res = await fetch("https://enterprise-zc5x.onrender.com/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await res.json();
+    return data.answer || "No answer returned.";
+  } catch (err) {
+    console.error("Error talking to AI:", err);
+    return "AI error. Try again.";
+  }
 }
 
 // On page load
@@ -89,16 +91,23 @@ window.addEventListener("load", () => {
   if (isLoggedIn === "true" && email) {
     updateUI(email);
   }
+
+  // AI input handler
+  const aiSubmit = document.getElementById("ai-submit");
+  const aiPrompt = document.getElementById("ai-prompt");
+
+  if (aiSubmit && aiPrompt && aiResponse) {
+    aiSubmit.addEventListener("click", async () => {
+      const prompt = aiPrompt.value.trim();
+      if (!prompt) {
+        aiResponse.innerText = "Please enter a prompt.";
+        return;
+      }
+
+      aiResponse.innerText = "Thinking… 🤖";
+      const answer = await getGeminiResponse(prompt);
+      aiResponse.innerText = answer;
+    });
+  }
 });
 
-// Ai Message Responder
-async function getGeminiResponse(prompt) {
-  const res = await fetch("", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt })
-  });
-
-  const data = await res.json();
-  console.log(data);
-}
