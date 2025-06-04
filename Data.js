@@ -1,24 +1,28 @@
-function getDemoSmartwatchData() {
-  return {
-    steps: 8452,
-    heart_rate: 68,
-    sleep: '7h 12m',
-    stress: 'Moderate'
-  };
+function drawDemoStepsChart() {
+  // Demo data: Steps for a week
+  const ctx = document.getElementById('stepsChart').getContext('2d');
+  const stepsData = [7500, 8200, 9000, 11000, 9800, 10200, 8452];
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: days,
+      datasets: [{
+        label: 'Steps per Day',
+        data: stepsData,
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
 }
 
-function showDemoSmartwatchData() {
-  const data = getDemoSmartwatchData();
-  document.getElementById('smartwatch-data').innerHTML = `
-    <h3>Smartwatch Data (Demo)</h3>
-    <ul>
-      <li>Steps: ${data.steps}</li>
-      <li>Heart Rate: ${data.heart_rate} bpm</li>
-      <li>Sleep: ${data.sleep}</li>
-      <li>Stress Level: ${data.stress}</li>
-    </ul>
-    <div style="color: orange;">Demo data shown</div>
-  `;
-}
-
-showDemoSmartwatchData();
+// Call this after the DOM has drawn the canvas
+drawDemoStepsChart();
