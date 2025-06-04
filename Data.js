@@ -1,6 +1,6 @@
 function getDemoData() {
   return {
-    Sleep: 12.5hrs,
+    Sleep: 12.5,
     Heart_rate: 75,
     Stress: ~,  
     Steps: 5000
