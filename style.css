@@ -218,5 +218,16 @@ footer {
   margin-top: 2rem;
 }
 
+#darkModeToggle {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin-top: 10px;
+}
 
 
