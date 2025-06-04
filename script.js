@@ -71,3 +71,29 @@ window.addEventListener("load", () => {
     updateUI(email);
   }
 });
+
+// Ai Message Responder
+async function getGeminiResponse(prompt) {
+  const res = await fetch("", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  console.log(data);
+}
+// Update UI when logged in
+function updateUI(email) {
+  welcomeMessage.innerText = `Welcome back, ${email} 👋`;
+  aiResponse.innerText = generateAIResponse(email);
+  userStats.style.display = "block";
+  openModal.style.display = "none";
+  logoutBtn.style.display = "inline-block";
+}
+
+// Simulated AI response
+function generateAIResponse(email) {
+  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
+}
+
