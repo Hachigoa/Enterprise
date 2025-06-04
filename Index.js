@@ -1,44 +1,47 @@
 // Index.js
 const express = require("express");
+const cors = require("cors");
 const axios = require("axios");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Grab API_KEY from the environment
-const apiKey = process.env.API_KEY;
-
-// Parse JSON bodies
+// Enable CORS for all origins (or restrict to your domain)
+app.use(cors());
 app.use(express.json());
 
-// Health-check route
+// Health check
 app.get("/", (req, res) => {
-  res.send(`Hello from AI server! API Key is ${apiKey ? "set ✔️" : "missing ❌"}`);
+  res.send(`Hello from AI server! API Key is ${process.env.API_KEY ? "set ✔️" : "missing ❌"}`);
 });
 
-// Example AI route: POST /ask { "prompt": "…" }
+// POST /ask  ← your frontend will hit this
 app.post("/ask", async (req, res) => {
   const { prompt } = req.body;
   if (!prompt) {
-    return res.status(400).json({ error: "Missing ‘prompt’ in request body" });
+    return res.status(400).json({ error: "Missing prompt in request body" });
   }
-  
+
+  // Read your secret from process.env.API_KEY
+  const key = process.env.API_KEY;
+  if (!key) {
+    return res.status(500).json({ error: "Server API_KEY is not set" });
+  }
+
   try {
-    // Replace the URL below with your actual AI provider’s endpoint
+    // Gemini REST endpoint, with your key as query param
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta2/models/gemini-2.0-flash:generateText?key=${key}`;
+
     const aiResponse = await axios.post(
-      "https://generativelanguage.googleapis.com/v1beta2/models/​gemini-2.0-flash:generateText?key=YOUR_API_KEY",
-      { prompt },
-      {
-        headers: {
-          "Authorization": `Bearer ${apiKey}`,
-          "Content-Type": "application/json"
-        }
-      }
+      endpoint,
+      { prompt: { text: prompt } },
+      { headers: { "Content-Type": "application/json" } }
     );
 
-    // Forward the AI’s answer back to the client
-    return res.json({ answer: aiResponse.data.answer });
+    // Gemini puts the generated text in data.candidates[0].output
+    const answer = aiResponse.data?.candidates?.[0]?.output;
+    return res.json({ answer });
   } catch (err) {
-    console.error("AI request failed:", err.response?.data || err.message);
+    console.error("Error calling Gemini:", err.response?.data || err.message);
     return res.status(500).json({ error: "AI request failed" });
   }
 });
@@ -46,3 +49,4 @@ app.post("/ask", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
