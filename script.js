@@ -74,10 +74,7 @@ function updateUI(email) {
   if (loginBtn) {
     loginBtn.style.display = "none";
   }
-}
-
-
-}
+});
 
 // On page load
 window.addEventListener("load", () => {
