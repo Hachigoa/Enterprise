@@ -21,4 +21,4 @@ jobs:
       run: npm install
 
     - name: Run the app
-      run: node Enterprise/index.js
+      run: node Enterprise/Index.js
