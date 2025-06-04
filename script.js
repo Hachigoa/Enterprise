@@ -1,4 +1,4 @@
-const modal = document.getElementById("loginModal");
+const modal = document.getElementById("loginModal");More actions
 const openModal = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 const loginForm = document.getElementById("loginForm");
@@ -8,12 +8,12 @@ const aiResponse = document.getElementById("ai-response");
 const userStats = document.getElementById("user-stats");
 
 // Show login modal
-openModal?.addEventListener("click", () => {
+openModal.addEventListener("click", () => {
   modal.style.display = "flex";
 });
 
 // Close login modal
-closeModal?.addEventListener("click", () => {
+closeModal.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
@@ -24,7 +24,7 @@ window.addEventListener("click", (e) => {
 });
 
 // Handle login
-loginForm?.addEventListener("submit", function (e) {
+loginForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const email = e.target.email.value.trim();
   const password = e.target.password.value;
@@ -42,16 +42,20 @@ loginForm?.addEventListener("submit", function (e) {
 });
 
 // Logout
-logoutBtn?.addEventListener("click", () => {
+logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("loggedInUser");
-  location.reload();
+  location.reload();More actions
 });
 
 // Update UI when logged in
 function updateUI(email) {
-  if (welcomeMessage) {
+if (welcomeMessage) {Add commentMore actions
     welcomeMessage.innerText = `Welcome back, ${email} 👋`;
+  }
+
+  if (aiResponse) {
+    aiResponse.innerText = generateAIResponse(email);
   }
 
   if (userStats) {
@@ -70,61 +74,31 @@ function updateUI(email) {
   if (loginBtn) {
     loginBtn.style.display = "none";
   }
-
-  // Optional: show AI welcome
-  if (aiResponse) {
-    aiResponse.innerText = `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
-  }
 }
 
-// Ask AI function
-async function askAI(promptText) {
-  try {
-    const BASE_URL = "https://enterprise-zc5x.onrender.com"; // Replace if needed
-    const response = await fetch(`${BASE_URL}/ask`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: promptText })
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      console.error("Backend error:", data.error);
-      return `Error: ${data.error}`;
-    }
-
-    return data.answer;
-  } catch (err) {
-    console.error("Network error:", err);
-    return "Network error. See console.";
-  }
+// Simulated AI response
+function generateAIResponse(email) {
+  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
 }
 
-// Unified load event
+// On page load
 window.addEventListener("load", () => {
-  // Check login state
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const email = localStorage.getItem("loggedInUser");
 
   if (isLoggedIn === "true" && email) {
     updateUI(email);
   }
-
-  // Setup AI interaction
-  const aiSubmit = document.getElementById("ai-submit");
-  const aiPrompt = document.getElementById("ai-prompt");
-
-  if (aiSubmit && aiPrompt && aiResponse) {
-    aiSubmit.addEventListener("click", async () => {
-      const text = aiPrompt.value.trim();
-      if (!text) {
-        aiResponse.innerText = "Please type a prompt first.";
-        return;
-      }
-
-      aiResponse.innerText = "Thinking… 🤖";
-      const answer = await askAI(text);
-      aiResponse.innerText = answer;
-    });
-  }
 });
+
+// Ai Message Responder
+async function getGeminiResponse(prompt) {
+  const res = await fetch("", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  console.log(data);
+}
