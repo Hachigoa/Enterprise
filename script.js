@@ -97,3 +97,24 @@ function generateAIResponse(email) {
   return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
 }
 
+function updateUI(email) {
+  if (welcomeMessage) {
+    welcomeMessage.innerText = `Welcome back, ${email} 👋`;
+  }
+
+  if (aiResponse) {
+    aiResponse.innerText = generateAIResponse(email);
+  }
+
+  if (userStats) {
+    userStats.style.display = "block";
+  }
+
+  if (openModal) {
+    openModal.style.display = "none";
+  }
+
+  if (logoutBtn) {
+    logoutBtn.style.display = "inline-block";
+  }
+}
