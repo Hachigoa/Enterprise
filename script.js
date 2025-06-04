@@ -84,13 +84,37 @@ async function getGeminiResponse(prompt) {
   console.log(data);
 }
 
-// When user logs in:
-localStorage.setItem('user', JSON.stringify(userObject));
+// Cookie Login
+function loginUser(username) {
+    // Set a cookie that expires in 7 days
+    document.cookie = `loggedIn=true; path=/; max-age=${7*24*60*60}`;
+    document.cookie = `username=${encodeURIComponent(username)}; path=/; max-age=${7*24*60*60}`;
+    // Redirect or update UI as needed
+}
 
-// On every page load:
-const user = JSON.parse(localStorage.getItem('user'));
-if (user) {
-  // User is signed in - update the UI
-} else {
-  // Redirect to login page or show sign-in prompt
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([$?*|{}\]\\^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function checkLogin() {
+    if (getCookie('loggedIn') === 'true') {
+        // User is logged in
+        showDashboard();
+    } else {
+        // Not logged in
+        showLoginForm();
+    }
+}
+
+window.onload = checkLogin;
+
+function logoutUser() {
+    // Remove cookies by setting expiration in past
+    document.cookie = "loggedIn=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "username=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    // Redirect or update UI as needed
+    location.href = '/login.html';
 }
