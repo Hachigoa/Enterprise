@@ -2,54 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Health AI Advisor</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Health AI Advisor - Settings</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
+  <header>
+    <h1>Health Advisor</h1>
 
-        <h1>Health Advisor</h1>
+    <!-- Nav -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="Insight.html">Insights</a></li>
+        <li><a href="Setting.html">Settings</a></li>
+      </ul>
 
-<!-- Nav -->
- <nav>
-    <ul class="nav-links">
-      <li><a href="index.html">Dashboard</a></li>
-      <li><a href="Insight.html">Insights</a></li>
-      <li><a href="Setting.html">Settings</a></li>
-    </ul>
-<!-- Login -->
-<button class="login-btn" id="openModal">Login</button>
+      <!-- Login -->
+      <button class="login-btn" id="openModal">Login</button>
 
-<!-- Modal -->
-<div class="modal" id="loginModal">
-<div class="modal-backdrop"> </div>  
-<div class="modal-content"> 
-  
-<img src="close.png" alt="Close" class="close" id="closeModal" />
-    <h2>Login In</h2>
-    <form id="loginForm" action="/login" method="POST">
-      <input type="text" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-     <p>
-  Don't have an account?
-  <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
-</p>
-    </form>
-  </div>
-</div>
- </nav>
+      <!-- Modal -->
+      <div class="modal" id="loginModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+          <img src="close.png" alt="Close" class="close" id="closeModal" />
+          <h2>Login In</h2>
+          <form id="loginForm" action="/login" method="POST">
+            <input type="text" name="email" placeholder="Email" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+            <p>
+              Don't have an account?
+              <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-<body>
-        
+  <main>
+    <h2>User Settings</h2>
+    
+    <div id="settings-container">
+      <label for="displayName">Display Name:</label>
+      <input type="text" id="displayName" placeholder="Enter your display name" />
 
+      <label>
+        <input type="checkbox" id="darkModeToggle" />
+        Enable Dark Mode
+      </label>
 
+      <button id="saveBtn">Save Settings</button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </main>
 
-</header> 
- <footer>
-   &copy; 2025 Phillip Chou
-    </footer>
-<script src="script.js"></script>
-</body>    
+  <footer>&copy; 2025 Phillip Chou</footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Wait for page load
+    window.addEventListener("load", () => {
+      const loggedInUser = localStorage.getItem("loggedInUser");
+      if (!loggedInUser) {
+        alert("You must be logged in to access settings.");
+        window.location.href = "index.html"; // Redirect if not logged in
+        return;
+      }
+
+      // Load user prefs
+      const prefs = JSON.parse(localStorage.getItem(`prefs_${loggedInUser}`)) || {};
+
+      // Set display name
+      document.getElementById("displayName").value = prefs.displayName || "";
+
+      // Set dark mode toggle & apply theme
+      if (prefs.darkMode) {
+        document.body.classList.add("dark-mode");
+        document.getElementById("darkModeToggle").checked = true;
+      }
+
+      // Save button
+      document.getElementById("saveBtn").addEventListener("click", () => {
+        const newPrefs = {
+          displayName: document.getElementById("displayName").value.trim(),
+          darkMode: document.getElementById("darkModeToggle").checked
+        };
+
+        localStorage.setItem(`prefs_${loggedInUser}`, JSON.stringify(newPrefs));
+
+        if (newPrefs.darkMode) {
+          document.body.classList.add("dark-mode");
+        } else {
+          document.body.classList.remove("dark-mode");
+        }
+
+        alert("Settings saved!");
+      });
+
+      // Logout button
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("loggedInUser");
+        window.location.href = "index.html"; // Redirect to homepage or login page
+      });
+    });
+  </script>
+</body>
 </html>
