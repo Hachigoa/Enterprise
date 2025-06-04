@@ -50,6 +50,29 @@
         <input type="checkbox" id="darkModeToggle" />
         Enable Dark Mode
       </label>
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (loggedInUser) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "block";
+  } else {
+    if (loginBtn) loginBtn.style.display = "block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "index.html";
+    });
+  }
+});
+</script>
 
       <button id="saveBtn">Save Settings</button>
     </div>
