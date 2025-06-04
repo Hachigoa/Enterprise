@@ -1,26 +1,24 @@
-function getDemoData() {
+function getDemoSmartwatchData() {
   return {
-    Sleep: 12.5,
-    Heart_rate: 75,
-    Stress: ~,  
-    Steps: 5000
-    
-    
-    // Add other demo values
+    steps: 8452,
+    heart_rate: 68,
+    sleep: '7h 12m',
+    stress: 'Moderate'
   };
 }
 
-async function showSmartwatchDataDemo() {
-  let data;
-  if (API_KEY === 'YOUR_API_KEY') { // Or check if key is missing
-    data = getDemoData();
-  } else {
-    data = await fetchSmartwatchData();
-  }
+function showDemoSmartwatchData() {
+  const data = getDemoSmartwatchData();
   document.getElementById('smartwatch-data').innerHTML = `
-    <p>Steps: ${data.steps}</p>
-    <p>Heart Rate: ${data.heart_rate}</p>
+    <h3>Smartwatch Data (Demo)</h3>
+    <ul>
+      <li>Steps: ${data.steps}</li>
+      <li>Heart Rate: ${data.heart_rate} bpm</li>
+      <li>Sleep: ${data.sleep}</li>
+      <li>Stress Level: ${data.stress}</li>
+    </ul>
+    <div style="color: orange;">Demo data shown</div>
   `;
 }
 
-showSmartwatchDataDemo();
+showDemoSmartwatchData();
