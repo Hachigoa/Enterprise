@@ -57,19 +57,7 @@
 <script src="script.js"></script>
   <!--Node.js -->
   <script src="index.js"></script>
-  <script>
-    window.addEventListener("load", () => {
-  const loggedInUser = localStorage.getItem("loggedInUser");
-  if (!loggedInUser) {
-    // Only alert if not already redirected before
-    const fromLogin = sessionStorage.getItem("fromLogin");
-    if (!fromLogin) {
-      alert("You must be logged in to access settings.");
-    }
-    window.location.href = "index.html";
-    return;
-  }
-    </script>
+  <script src="Setting.js"></script>
   <script src="Data.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>    
