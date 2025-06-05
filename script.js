@@ -1,4 +1,4 @@
-const modal = document.getElementById("loginModal");More actions
+const modal = document.getElementById("loginModal");
 const openModal = document.getElementById("openModal");
 const closeModal = document.getElementById("closeModal");
 const loginForm = document.getElementById("loginForm");
@@ -6,12 +6,12 @@ const logoutBtn = document.getElementById("logoutBtn");
 const welcomeMessage = document.getElementById("welcome-message");
 const aiResponse = document.getElementById("ai-response");
 const userStats = document.getElementById("user-stats");
-const aiSection = document.getElementById("ai-section");
 
 // Simulated AI welcome message
-function generateAIResponse(email) {
-  return `Hi ${email}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
-}Add commentMore actions
+function generateAIResponse(email, displayName) {
+  const name = displayName || email;
+  return `Hi ${name}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
+}
 
 // Show login modal
 openModal?.addEventListener("click", () => {
@@ -57,19 +57,28 @@ logoutBtn?.addEventListener("click", () => {
 
 // Update UI when logged in
 function updateUI(email) {
-  welcomeMessage.innerText = `Welcome back, ${email} 👋`;
+  const prefs = JSON.parse(localStorage.getItem(`prefs_${email}`)) || {};
+  const displayName = prefs.displayName || email;
 
-  if (aiResponse) {
-    aiResponse.innerText = generateAIResponse(email);
+  if (welcomeMessage) {
+    welcomeMessage.innerText = `Welcome back, ${displayName} 👋`;
   }
 
-  userStats.style.display = "block";
-  openModal.style.display = "none";
-  logoutBtn.style.display = "inline-block";
-  if (aiSection) aiSection.style.display = "block";
+  if (aiResponse) {
+    aiResponse.innerText = generateAIResponse(email, prefs.displayName);
+  }
+
+  // Apply dark mode if enabled
+  if (prefs.darkMode) {
+    document.body.classList.add("dark-mode");
+  }
+
+  if (userStats) userStats.style.display = "block";
+  if (openModal) openModal.style.display = "none";
+  if (logoutBtn) logoutBtn.style.display = "inline-block";
 }
 
-// AI message responder (replace with real API if needed)
+// AI message responder (use your real API endpoint)
 async function getGeminiResponse(prompt) {
   try {
     const res = await fetch("https://enterprise-zc5x.onrender.com/ask", {
@@ -93,23 +102,14 @@ window.addEventListener("load", () => {
 
   if (isLoggedIn === "true" && email) {
     updateUI(email);
-  } else {
-    if (aiSection) aiSection.style.display = "none";
   }
 
+  // AI input handler
   const aiSubmit = document.getElementById("ai-submit");
   const aiPrompt = document.getElementById("ai-prompt");
 
   if (aiSubmit && aiPrompt && aiResponse) {
     aiSubmit.addEventListener("click", async () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
-      const email = localStorage.getItem("loggedInUser");
-
-      if (isLoggedIn !== "true" || !email) {
-        aiResponse.innerText = "❌ Please log in to use the AI.";
-        return;
-      }
-
       const prompt = aiPrompt.value.trim();
       if (!prompt) {
         aiResponse.innerText = "Please enter a prompt.";
