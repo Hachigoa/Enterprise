@@ -5,50 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Health AI Advisor</title>
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .response-box,
-    .prompt-box {
-      max-height: 200px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      padding: 0.75rem;
-      background-color: #faf8ca;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 0.95rem;
-      margin-top: 1rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .prompt-box {
-      resize: none; /* Prevent resizing */
-    }
-
-    #ai-submit {
-      display: inline-block;
-      background-color: #2b7a78;
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background-color 0.3s ease, transform 0.1s ease;
-    }
-
-    #ai-submit:hover {
-      background-color: #205e5d;
-    }
-
-    #ai-submit:active {
-      transform: scale(0.98);
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -80,38 +36,100 @@
       </form>
     </div>
   </div>
+ 
+<div class="container">
+  <div class="section">
 
+    <!-- Wrap AI interface in a toggleable section -->
+    <div id="ai-section" style="display: none;">
+      <div class="card ai-insight">
+        <h2 id="welcome-message">Welcome back, 👋</h2>
+
+        <!-- AI response output -->
+        <div id="ai-response" class="response-box">Response will go here…</div>
+        <textarea id="ai-prompt" class="prompt-box">></textarea>
+        <button id="ai-submit">Send</button>
+      </div>
+    </div>
+
+    <style>
+      .response-box {
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        padding: 0.75rem;
+        background-color: #faf8ca;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+     .prompt-box {
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 0.75rem;
+  background-color: #faf8ca;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none; /* Prevent resizing */
+}
+      <style>
+  .ai-submit {
+    display: inline-block;
+    background-color: #2b7a78; /* Teal */
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+
+  .ai-submit:hover {
+    background-color: #205e5d; /* Darker teal on hover */
+  }
+
+  .ai-submit:active {
+    transform: scale(0.98); /* Subtle click effect */
+  }
+</style>
+
+    </style>
+
+  </div>
+</div>
+
+<div id="user-stats" style="display: none; padding: 20px;">
   <div class="container">
     <div class="section">
-      <!-- AI interface section -->
-      <div id="ai-section" style="display: none;">
-        <div class="card ai-insight">
-          <h2 id="welcome-message">Welcome back, 👋</h2>
-
-          <!-- AI response output -->
-          <div id="ai-response" class="response-box">Response will go here…</div>
-          <textarea id="ai-prompt" class="prompt-box" placeholder="Type your question here..."></textarea>
-          <button id="ai-submit">Send</button>
-        </div>
+      <div class="card">
+        <h2>Your Health Stats</h2>
+        <!-- Additional stats here -->
       </div>
     </div>
   </div>
+</div>
 
-  <div id="user-stats" style="display: none; padding: 20px;">
-    <div class="container">
-      <div class="section">
-        <div class="card">
-          <h2>Your Health Stats</h2>
-          <!-- Additional stats here -->
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <footer>
-    &copy; 2025 Phillip Chou
-  </footer>
-
-  <script src="script.js"></script>
-</body>
+ <footer>
+   &copy; 2025 Phillip Chou
+    </footer>
+<script src="script.js"></script>
+  <!--Node.js -->
+  <script src=""></script>
+</body>    
 </html>
