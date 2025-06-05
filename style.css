@@ -120,7 +120,7 @@ nav a:hover{
   cursor: pointer;
 }
 
-/* Button styling (matches your header) */
+/* Button styling (matches your header) */More actions
 .login-btn {
   background: transparent;
   border: 1px;
@@ -134,7 +134,7 @@ nav a:hover{
    color: white;
    border-radius: 5px;
 
-  
+
 }
 
 .login-btn:hover {
@@ -154,7 +154,7 @@ nav a:hover{
    color: white;
    border-radius: 5px;
 
-  
+
 }
 
 .logout-btn:hover {
@@ -218,7 +218,7 @@ footer {
   margin-top: 2rem;
 }
 
-.dark-mode {
+.dark-mode {Add commentMore actions
   background-color: #121212;
   color: #ffffff;
 }
@@ -230,4 +230,3 @@ footer {
   color: #fff;
   border: 1px solid #666;
 }
-
