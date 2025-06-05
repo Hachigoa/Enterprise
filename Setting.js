@@ -1,7 +1,7 @@
 window.addEventListener("load", () => {
   const loggedInUser = localStorage.getItem("loggedInUser");
+
   if (!loggedInUser) {
-    // Only alert if not already redirected before
     const fromLogin = sessionStorage.getItem("fromLogin");
     if (!fromLogin) {
       alert("You must be logged in to access settings.");
@@ -10,23 +10,31 @@ window.addEventListener("load", () => {
     return;
   }
 
-  // Clear the flag so alert works next time if needed
+  // Clear flag for future visits
   sessionStorage.removeItem("fromLogin");
 
-  // Load user prefs
+  // Load user preferences
   const prefs = JSON.parse(localStorage.getItem(`prefs_${loggedInUser}`)) || {};
 
-  document.getElementById("displayName").value = prefs.displayName || "";
-
-  if (prefs.darkMode) {
-    document.body.classList.add("dark-mode");
-    document.getElementById("darkModeToggle").checked = true;
+  // Set display name field
+  const displayNameInput = document.getElementById("displayName");
+  if (displayNameInput) {
+    displayNameInput.value = prefs.displayName || "";
   }
 
-  document.getElementById("saveBtn").addEventListener("click", () => {
+  // Set dark mode toggle
+  const darkModeToggle = document.getElementById("darkModeToggle");
+  if (prefs.darkMode) {
+    document.body.classList.add("dark-mode");
+    if (darkModeToggle) darkModeToggle.checked = true;
+  }
+
+  // Save button event
+  const saveBtn = document.getElementById("saveBtn");
+  saveBtn?.addEventListener("click", () => {
     const newPrefs = {
-      displayName: document.getElementById("displayName").value.trim(),
-      darkMode: document.getElementById("darkModeToggle").checked,
+      displayName: displayNameInput?.value.trim() || "",
+      darkMode: darkModeToggle?.checked || false,
     };
 
     localStorage.setItem(`prefs_${loggedInUser}`, JSON.stringify(newPrefs));
@@ -40,7 +48,17 @@ window.addEventListener("load", () => {
     alert("Settings saved!");
   });
 
-  document.getElementById("logoutBtn").addEventListener("click", () => {
+  // Optional: Save on Enter key in displayName input
+  displayNameInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      saveBtn?.click();
+    }
+  });
+
+  // Logout button
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn?.addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loggedInUser");
     window.location.href = "index.html";
