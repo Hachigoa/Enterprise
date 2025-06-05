@@ -6,7 +6,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const welcomeMessage = document.getElementById("welcome-message");
 const aiResponse = document.getElementById("ai-response");
 const userStats = document.getElementById("user-stats");
-const aiSection = document.getElementById("ai-section"); // ✅ Added missing AI section reference
+const aiSection = document.getElementById("ai-section");
 
 // Simulated AI welcome message
 function generateAIResponse(email, displayName) {
@@ -75,9 +75,11 @@ function updateUI(email) {
   }
 
   if (userStats) userStats.style.display = "block";
-  if (aiSection) aiSection.style.display = "block"; // ✅ Show AI section after login
   if (openModal) openModal.style.display = "none";
   if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+  // ✅ Show AI section
+  if (aiSection) aiSection.style.display = "block";
 }
 
 // AI message responder (use your real API endpoint)
