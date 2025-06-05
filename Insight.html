@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Health AI Advisor</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="Data.css">
 </head>
 <body>
   <header>
@@ -58,6 +57,19 @@
 <script src="script.js"></script>
   <!--Node.js -->
   <script src="index.js"></script>
+  <script>
+    window.addEventListener("load", () => {
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  if (!loggedInUser) {
+    // Only alert if not already redirected before
+    const fromLogin = sessionStorage.getItem("fromLogin");
+    if (!fromLogin) {
+      alert("You must be logged in to access settings.");
+    }
+    window.location.href = "index.html";
+    return;
+  }
+    </script>
   <script src="Data.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>    
