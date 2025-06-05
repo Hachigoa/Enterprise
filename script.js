@@ -121,3 +121,9 @@ window.addEventListener("load", () => {
     });
   }
 });
+
+  const darkModeToggle = document.getElementById("darkModeToggle");
+  if (prefs.darkMode) {
+    document.body.classList.add("dark-mode");
+    if (darkModeToggle) darkModeToggle.checked = true;
+  }
