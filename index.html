@@ -49,29 +49,6 @@
         <div id="ai-response" class="response-box">Response will go here…</div>
         <textarea id="ai-prompt" class="prompt-box">></textarea>
         <button id="ai-submit">Send</button>
-        <style>
-  #ai-submit {
-    display: inline-block;
-    background-color: #2b7a78; /* Teal */
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-  }
-
-  #ai-submit:hover {
-    background-color: #205e5d; /* Darker teal on hover */
-  }
-
-  #ai-submit:active {
-    transform: scale(0.98); /* Subtle click effect */
-  }
-</style>
-
       </div>
     </div>
 
@@ -93,6 +70,20 @@
       }
 
       .prompt-box {
+        max-height: 200px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        padding: 0.75rem;
+        background-color: #faf8ca;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 0.95rem;
+        margin-top: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
   max-height: 200px;
   overflow-y: auto;
   white-space: pre-wrap;
