@@ -6,6 +6,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const welcomeMessage = document.getElementById("welcome-message");
 const aiResponse = document.getElementById("ai-response");
 const userStats = document.getElementById("user-stats");
+const aiSection = document.getElementById("ai-section");
 
 // Simulated AI welcome message
 function generateAIResponse(email) {
@@ -64,9 +65,10 @@ function updateUI(email) {
   userStats.style.display = "block";
   openModal.style.display = "none";
   logoutBtn.style.display = "inline-block";
+  if (aiSection) aiSection.style.display = "block";
 }
 
-// AI message responder (use your real API endpoint)
+// AI message responder (replace with real API if needed)
 async function getGeminiResponse(prompt) {
   try {
     const res = await fetch("https://enterprise-zc5x.onrender.com/ask", {
@@ -90,14 +92,23 @@ window.addEventListener("load", () => {
 
   if (isLoggedIn === "true" && email) {
     updateUI(email);
+  } else {
+    if (aiSection) aiSection.style.display = "none";
   }
 
-  // AI input handler
   const aiSubmit = document.getElementById("ai-submit");
   const aiPrompt = document.getElementById("ai-prompt");
 
   if (aiSubmit && aiPrompt && aiResponse) {
     aiSubmit.addEventListener("click", async () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const email = localStorage.getItem("loggedInUser");
+
+      if (isLoggedIn !== "true" || !email) {
+        aiResponse.innerText = "❌ Please log in to use the AI.";
+        return;
+      }
+
       const prompt = aiPrompt.value.trim();
       if (!prompt) {
         aiResponse.innerText = "Please enter a prompt.";
@@ -110,4 +121,3 @@ window.addEventListener("load", () => {
     });
   }
 });
-
