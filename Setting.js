@@ -1,11 +1,8 @@
 window.addEventListener("load", () => {
-  const loggedInUser = localStorage.getItem("loggedInUser");
+  const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-  if (!loggedInUser) {
-    const fromLogin = sessionStorage.getItem("fromLogin");
-    if (!fromLogin) {
-      alert("You must be logged in to access settings.");
-    }
+  if (!isLoggedIn) {
+    alert("You must be logged in to access settings.");
     window.location.href = "index.html";
     return;
   }
@@ -14,7 +11,7 @@ window.addEventListener("load", () => {
   sessionStorage.removeItem("fromLogin");
 
   // Load user preferences
-  const prefs = JSON.parse(localStorage.getItem(`prefs_${loggedInUser}`)) || {};
+  const prefs = JSON.parse(localStorage.getItem('userPrefs')) || {};
 
   // Set display name field
   const displayNameInput = document.getElementById("displayName");
@@ -37,7 +34,7 @@ window.addEventListener("load", () => {
       darkMode: darkModeToggle?.checked || false,
     };
 
-    localStorage.setItem(`prefs_${loggedInUser}`, JSON.stringify(newPrefs));
+    localStorage.setItem('userPrefs', JSON.stringify(newPrefs));
 
     if (newPrefs.darkMode) {
       document.body.classList.add("dark-mode");
@@ -59,8 +56,7 @@ window.addEventListener("load", () => {
   // Logout button
   const logoutBtn = document.getElementById("logoutBtn");
   logoutBtn?.addEventListener("click", () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem('loggedIn');
     window.location.href = "index.html";
   });
 });
