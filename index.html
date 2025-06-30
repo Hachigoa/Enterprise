@@ -1,198 +1,247 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Health AI Advisor</title>
+  <meta name="description" content="Health AI Advisor - Your personalized health companion powered by artificial intelligence" />
+  <meta name="keywords" content="health, AI, advisor, wellness, fitness, medical assistant" />
+  <meta name="theme-color" content="#2b7a78" />
+  <title>Health AI Advisor - Your Personal Health Companion</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <header>
-    <h1>Health Advisor</h1>
+    <h1>🏥 Health Advisor</h1>
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="Insight.html">Insights</a></li>
-        <li><a href="Setting.html">Settings</a></li>
+        <li><a href="index.html" aria-label="Dashboard">📊 Dashboard</a></li>
+        <li><a href="Insight.html" aria-label="Health Insights">💡 Insights</a></li>
+        <li><a href="Setting.html" aria-label="Settings">⚙️ Settings</a></li>
       </ul>
-      <button class="login-btn" id="openModal">Login</button>
-      <button class="logout-btn" id="logoutBtn" style="display:none;">Logout</button>
+      <button class="login-btn" id="openModal" aria-label="Open login modal">🔑 Login</button>
+      <button class="logout-btn" id="logoutBtn" style="display:none;" aria-label="Logout">🚪 Logout</button>
     </nav>
   </header>
- <div id="home-description" style="padding: 30px; text-align: center;">
-  <h2>Welcome to Health Advisor!</h2>
-  <p>
-    This platform helps you track, analyze, and improve your health using AI insights.<br>
-    Please log in to access your personalized dashboard.
-  </p>
-</div>
-  <div class="modal" id="loginModal">
-    <div class="modal-backdrop"></div>
- <div class="modal-content">
-  <img src="close.png" alt="Close" class="close" id="closeModal" />
 
-  <!-- Error message for login, place this ABOVE the form -->
-  <div id="loginError" style="display:none; color:red; text-align:left; margin-bottom:10px;">
-    <img src="image_2025-06-30_104953040.png" alt="Error" style="width:24px;vertical-align:middle;">
-    <span id="loginErrorText"></span>
-  </div>
-
-  <h2>Login In</h2>
-  <form id="loginForm" action="#" method="POST">
-    <input type="text" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <button type="submit">Login</button>
+  <div id="home-description" style="padding: 60px 30px; text-align: center;">
+    <h2>Welcome to Health AI Advisor! 🌟</h2>
     <p>
-      Don't have an account?
-      <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
+      Transform your health journey with AI-powered insights and personalized recommendations.<br>
+      Track your wellness, get intelligent analysis, and achieve your health goals.<br>
+      <strong>Please log in to access your personalized dashboard.</strong>
     </p>
-  </form>
-</div>
-  </div>
-
- <div class="container">
-  <div class="section">
-
-    <!-- Wrap AI interface in a toggleable section -->
-    <div id="ai-section" style="display: none;">
-      <div class="card ai-insight">
-        <h2 id="welcome-message">Welcome back, 👋</h2>
-
-        <!-- AI response output -->
-        <div id="ai-response" class="response-box">Response will go here…</div>
-        <textarea id="ai-prompt" class="prompt-box">></textarea>
-        <button id="ai-submit">Send</button>
-        <style>
-  #ai-submit {
-    display: inline-block;
-    background-color: #2b7a78; /* Teal */
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-  }
-
-  #ai-submit:hover {
-    background-color: #205e5d; /* Darker teal on hover */
-  }
-
-  #ai-submit:active {
-    transform: scale(0.98); /* Subtle click effect */
-  }
-</style>
-
+    <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+      <div style="text-align: center; padding: 1rem;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤖</div>
+        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">AI-Powered</h3>
+        <p>Advanced AI analyzes your health data</p>
+      </div>
+      <div style="text-align: center; padding: 1rem;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📈</div>
+        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Personalized</h3>
+        <p>Tailored insights just for you</p>
+      </div>
+      <div style="text-align: center; padding: 1rem;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+        <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Goal-Oriented</h3>
+        <p>Achieve your health objectives</p>
       </div>
     </div>
-
-    <style>
-      .response-box {
-        max-height: 200px;
-        overflow-y: auto;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        padding: 0.75rem;
-        background-color: #faf8ca;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-family: monospace;
-        font-size: 0.95rem;
-        margin-top: 1rem;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .prompt-box {
-  max-height: 200px;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  padding: 0.75rem;
-  background-color: #faf8ca;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-family: monospace;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  resize: none; /* Prevent resizing */
-}
-    </style>
-
   </div>
-</div>
 
-<div id="user-stats" style="display: none; padding: 20px;">
+  <div class="modal" id="loginModal" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <img src="close.png" alt="Close" class="close" id="closeModal" aria-label="Close login modal" />
+
+      <!-- Error message for login -->
+      <div id="loginError" style="display:none; color:#dc3545; text-align:left; margin-bottom:15px;" role="alert">
+        <span style="font-size: 1.2rem;">⚠️</span>
+        <span id="loginErrorText"></span>
+      </div>
+
+      <h2 id="loginTitle">🔐 Sign In</h2>
+      <form id="loginForm" action="#" method="POST">
+        <input type="email" name="email" placeholder="📧 Email Address" required aria-label="Email address" />
+        <input type="password" name="password" placeholder="🔒 Password" required aria-label="Password" />
+        <button type="submit">🚀 Login</button>
+        <p style="margin-top: 1rem;">
+          Don't have an account?
+          <a href="Signup.html" style="color: var(--primary-color); text-decoration: underline; font-weight: 600;">Create Account</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
   <div class="container">
     <div class="section">
-      <div class="card">
-        <h2>Your Health Stats</h2>
-        <!-- Additional stats here -->
+      <!-- AI interface section -->
+      <div id="ai-section" style="display: none;">
+        <div class="card ai-insight">
+          <h2 id="welcome-message">Welcome back! 👋</h2>
+          
+          <!-- AI response output -->
+          <div id="ai-response" class="response-box" role="log" aria-live="polite">
+            🤖 Hello! I'm your AI health assistant. Ask me anything about your health, wellness, or fitness goals!
+          </div>
+          
+          <textarea 
+            id="ai-prompt" 
+            class="prompt-box" 
+            placeholder="💬 Ask me about your health, fitness goals, nutrition, or any wellness questions..."
+            aria-label="Enter your health question or prompt"
+          ></textarea>
+          
+          <button id="ai-submit" aria-label="Send message to AI assistant">
+            🚀 Send Message
+          </button>
+          
+          <div style="margin-top: 1rem; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 8px; font-size: 0.9rem; color: var(--gray-700);">
+            <strong>💡 Try asking:</strong> "What's a good morning routine for better health?" or "How can I improve my sleep quality?"
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div id="user-stats" style="display: none; padding: 20px;">
+    <div class="container">
+      <div class="section">
+        <div class="cards">
+          <div class="card">
+            <h2>📊 Your Health Dashboard</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(227, 242, 253, 0.9), rgba(187, 222, 251, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite;">❤️</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Heart Rate</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">72 BPM</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e3f2fd, #1976d2); opacity: 0.7;"></div>
+              </div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(243, 229, 245, 0.9), rgba(225, 190, 231, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 0.5s;">🛌</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Sleep</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">7.5 hrs</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #f3e5f5, #9c27b0); opacity: 0.7;"></div>
+              </div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(232, 245, 232, 0.9), rgba(200, 230, 201, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 1s;">🚶</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Steps</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">8,432</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e8f5e8, #4caf50); opacity: 0.7;"></div>
+              </div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 243, 224, 0.9), rgba(255, 204, 2, 0.3)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 1.5s;">😌</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Stress</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">Low</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #fff3e0, #ff9800); opacity: 0.7;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <span>© 2025 Phillip Chou</span>
+      <span style="opacity: 0.7;">|</span>
+      <span>🚀 Powered by AI Technology</span>
+    </div>
+  </footer>
 
   <script>
-  function isLoggedIn() {
-    return sessionStorage.getItem('loggedIn') === 'true';
-  }
-
-  function updateVisibility() {
-    const homeDesc = document.getElementById('home-description');
-    const aiSection = document.getElementById('ai-section');
-    const userStats = document.getElementById('user-stats');
-    const loginBtn = document.getElementById('openModal');
-    const logoutBtn = document.getElementById('logoutBtn');
-
-    if (isLoggedIn()) {
-      if(homeDesc) homeDesc.style.display = 'none';
-      if(aiSection) aiSection.style.display = '';
-      if(userStats) userStats.style.display = '';
-      if(loginBtn) loginBtn.style.display = 'none';
-      if(logoutBtn) logoutBtn.style.display = '';
-    } else {
-      if(homeDesc) homeDesc.style.display = '';
-      if(aiSection) aiSection.style.display = 'none';
-      if(userStats) userStats.style.display = 'none';
-      if(loginBtn) loginBtn.style.display = '';
-      if(logoutBtn) logoutBtn.style.display = 'none';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    updateVisibility();
-
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-      loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        sessionStorage.setItem('loggedIn', 'true');
-        updateVisibility();
-        document.getElementById('loginModal').style.display = 'none';
-      });
+    function isLoggedIn() {
+      return sessionStorage.getItem('loggedIn') === 'true';
     }
 
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', function() {
-        sessionStorage.removeItem('loggedIn');
-        updateVisibility();
-      });
-    }
-  });
-</script>
+    function updateVisibility() {
+      const homeDesc = document.getElementById('home-description');
+      const aiSection = document.getElementById('ai-section');
+      const userStats = document.getElementById('user-stats');
+      const loginBtn = document.getElementById('openModal');
+      const logoutBtn = document.getElementById('logoutBtn');
 
- <footer>
-   &copy; 2025 Phillip Chou
-    </footer>
-<script src="script.js"></script>
-  <!--Node.js -->
-  <script src=""></script>
+      if (isLoggedIn()) {
+        if(homeDesc) {
+          homeDesc.style.opacity = '0';
+          homeDesc.style.transform = 'translateY(-20px)';
+          setTimeout(() => homeDesc.style.display = 'none', 300);
+        }
+        if(aiSection) {
+          setTimeout(() => {
+            aiSection.style.display = '';
+            aiSection.classList.add('slide-up');
+          }, 150);
+        }
+        if(userStats) {
+          setTimeout(() => {
+            userStats.style.display = '';
+            userStats.classList.add('fade-in');
+          }, 300);
+        }
+        if(loginBtn) {
+          loginBtn.style.opacity = '0';
+          setTimeout(() => loginBtn.style.display = 'none', 300);
+        }
+        if(logoutBtn) {
+          logoutBtn.style.display = '';
+          logoutBtn.classList.add('fade-in');
+        }
+      } else {
+        if(homeDesc) {
+          homeDesc.style.display = '';
+          homeDesc.classList.add('fade-in');
+        }
+        if(aiSection) aiSection.style.display = 'none';
+        if(userStats) userStats.style.display = 'none';
+        if(loginBtn) {
+          loginBtn.style.display = '';
+          loginBtn.classList.add('fade-in');
+        }
+        if(logoutBtn) logoutBtn.style.display = 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      updateVisibility();
+
+      const loginForm = document.getElementById('loginForm');
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          sessionStorage.setItem('loggedIn', 'true');
+          
+          // Show success feedback
+          const submitBtn = e.target.querySelector('button[type="submit"]');
+          submitBtn.innerHTML = '✅ Success!';
+          submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+          
+          setTimeout(() => {
+            updateVisibility();
+            document.getElementById('loginModal').style.opacity = '0';
+            setTimeout(() => {
+              document.getElementById('loginModal').style.display = 'none';
+            }, 300);
+          }, 800);
+        });
+      }
+
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          sessionStorage.removeItem('loggedIn');
+          updateVisibility();
+        });
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
 </body>      
 </html>
