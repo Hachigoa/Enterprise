@@ -37,7 +37,13 @@
       </form>
     </div>
   </div>
-
+ <div id="not-logged-in-message" style="display: none; text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.1); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.3);">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🔒 Login Required</h3>
+      <p style="margin-bottom: 1.5rem;">Please log in to access your settings and customize your experience.</p>
+      <button onclick="window.location.href='index.html'" style="background: var(--gradient-primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">
+        Go to Login
+      </button>
+    </div>
   <div class="container">
     <div style="text-align: center; margin: 2rem 0;">
       <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 0.5rem;">📈 Health Insights</h1>
@@ -139,6 +145,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
+  <script src="Setting.js"></script>
   <script>
 
       function isLoggedIn() {
