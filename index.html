@@ -115,26 +115,30 @@
         <div class="cards">
           <div class="card">
             <h2>📊 Your Health Dashboard</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
-              <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 8px;">
-                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">❤️</div>
-                <div style="font-weight: 600; color: var(--primary-color);">Heart Rate</div>
-                <div style="font-size: 1.2rem; font-weight: 700;">72 BPM</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(227, 242, 253, 0.9), rgba(187, 222, 251, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite;">❤️</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Heart Rate</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">72 BPM</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e3f2fd, #1976d2); opacity: 0.7;"></div>
               </div>
-              <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-radius: 8px;">
-                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🛌</div>
-                <div style="font-weight: 600; color: var(--primary-color);">Sleep</div>
-                <div style="font-size: 1.2rem; font-weight: 700;">7.5 hrs</div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(243, 229, 245, 0.9), rgba(225, 190, 231, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 0.5s;">🛌</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Sleep</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">7.5 hrs</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #f3e5f5, #9c27b0); opacity: 0.7;"></div>
               </div>
-              <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #e8f5e8, #c8e6c9); border-radius: 8px;">
-                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🚶</div>
-                <div style="font-weight: 600; color: var(--primary-color);">Steps</div>
-                <div style="font-size: 1.2rem; font-weight: 700;">8,432</div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(232, 245, 232, 0.9), rgba(200, 230, 201, 0.9)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 1s;">🚶</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Steps</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">8,432</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #e8f5e8, #4caf50); opacity: 0.7;"></div>
               </div>
-              <div style="text-align: center; padding: 1rem; background: linear-gradient(135deg, #fff3e0, #ffcc02); border-radius: 8px;">
-                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">😌</div>
-                <div style="font-weight: 600; color: var(--primary-color);">Stress</div>
-                <div style="font-size: 1.2rem; font-weight: 700;">Low</div>
+              <div class="metric-card" style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, rgba(255, 243, 224, 0.9), rgba(255, 204, 2, 0.3)); border-radius: 16px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(43, 122, 120, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <div style="font-size: 2rem; margin-bottom: 0.8rem; animation: float 3s ease-in-out infinite 1.5s;">😌</div>
+                <div style="font-weight: 700; color: var(--primary-color); font-size: 0.95rem; letter-spacing: 0.5px; text-transform: uppercase;">Stress</div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-top: 0.5rem;">Low</div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #fff3e0, #ff9800); opacity: 0.7;"></div>
               </div>
             </div>
           </div>
