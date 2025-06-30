@@ -22,19 +22,26 @@
 
   <div class="modal" id="loginModal">
     <div class="modal-backdrop"></div>
-    <div class="modal-content">
-      <img src="close.png" alt="Close" class="close" id="closeModal" />
-      <h2>Login In</h2>
-      <form id="loginForm" action="#" method="POST">
-        <input type="text" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Login</button>
-        <p>
-          Don't have an account?
-          <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
-        </p>
-      </form>
-    </div>
+ <div class="modal-content">
+  <img src="close.png" alt="Close" class="close" id="closeModal" />
+
+  <!-- Error message for login, place this ABOVE the form -->
+  <div id="loginError" style="display:none; color:red; text-align:left; margin-bottom:10px;">
+    <img src="green-x.png" alt="Error" style="width:24px;vertical-align:middle;">
+    <span id="loginErrorText"></span>
+  </div>
+
+  <h2>Login In</h2>
+  <form id="loginForm" action="#" method="POST">
+    <input type="text" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+    <p>
+      Don't have an account?
+      <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
+    </p>
+  </form>
+</div>
   </div>
 
  <div class="container">
