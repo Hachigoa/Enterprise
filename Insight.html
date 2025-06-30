@@ -1,22 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Health AI Advisor</title>
+  <title>Health AI Advisor - Insights</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
-    <h1>Health Advisor</h1>
+    <h1>🏥 Health Advisor</h1>
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="Insight.html">Insights</a></li>
-        <li><a href="Setting.html">Settings</a></li>
+        <li><a href="index.html">📊 Dashboard</a></li>
+        <li><a href="Insight.html">💡 Insights</a></li>
+        <li><a href="Setting.html">⚙️ Settings</a></li>
       </ul>
-      <button class="login-btn" id="openModal">Login</button>
-      <button class="logout-btn" id="logoutBtn" style="display:none;">Logout</button>
+      <button class="login-btn" id="openModal">🔑 Login</button>
+      <button class="logout-btn" id="logoutBtn" style="display:none;">🚪 Logout</button>
     </nav>
   </header>
 
@@ -24,44 +25,247 @@
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <img src="close.png" alt="Close" class="close" id="closeModal" />
-      <h2>Login In</h2>
+      <h2>🔐 Login</h2>
       <form id="loginForm" action="#" method="POST">
-        <input type="text" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <input type="email" name="email" placeholder="📧 Email" required />
+        <input type="password" name="password" placeholder="🔒 Password" required />
+        <button type="submit">🚀 Login</button>
         <p>
           Don't have an account?
-          <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
+          <a href="Signup.html" style="color: var(--primary-color); text-decoration: underline; font-weight: 600;">Create Account</a>
         </p>
       </form>
     </div>
   </div>
-<body>Heart Rate, Sleeping duration, Stress level, Steps</body>
 
   <div class="container">
+    <div style="text-align: center; margin: 2rem 0;">
+      <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 0.5rem;">📈 Health Insights</h1>
+      <p style="font-size: 1.2rem; color: var(--gray-700);">Track your wellness journey with detailed analytics</p>
+    </div>
+
     <div class="section">
-     <div class="card">
-       
-      <!-- In your Insight.html -->
-<div id="smartwatch-data">Loading...</div>
-<canvas id="stepsChart" width="400" height="200"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</div>
-    </div>
-    </div>
-    </div>
+      <!-- Health Metrics Cards -->
+      <div class="cards">
+        <div class="card">
+          <h2>❤️ Heart Rate</h2>
+          <div style="text-align: center; margin: 1rem 0;">
+            <div style="font-size: 3rem; font-weight: bold; color: var(--primary-color);" id="heart-rate">72</div>
+            <div style="font-size: 1rem; color: var(--gray-700);">BPM</div>
+            <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(40, 167, 69, 0.1); border-radius: 8px; color: var(--success);">
+              <strong>Normal Range</strong>
+            </div>
+          </div>
+          <canvas id="heartRateChart" width="300" height="150"></canvas>
+        </div>
 
+        <div class="card">
+          <h2>😴 Sleep Duration</h2>
+          <div style="text-align: center; margin: 1rem 0;">
+            <div style="font-size: 3rem; font-weight: bold; color: var(--accent-color);" id="sleep-hours">7.5</div>
+            <div style="font-size: 1rem; color: var(--gray-700);">Hours</div>
+            <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(40, 167, 69, 0.1); border-radius: 8px; color: var(--success);">
+              <strong>Good Quality</strong>
+            </div>
+          </div>
+          <canvas id="sleepChart" width="300" height="150"></canvas>
+        </div>
 
- <footer>
-   &copy; 2025 Phillip Chou
-    </footer>
-<script src="script.js"></script>
-  <!--Node.js -->
-  <script src="index.js"></script>
-  <script src="Setting.js"></script>
-  <script src="Data.js"></script>
+        <div class="card">
+          <h2>😰 Stress Level</h2>
+          <div style="text-align: center; margin: 1rem 0;">
+            <div style="font-size: 3rem; font-weight: bold; color: var(--warning);" id="stress-level">3</div>
+            <div style="font-size: 1rem; color: var(--gray-700);">Out of 10</div>
+            <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(255, 193, 7, 0.1); border-radius: 8px; color: var(--warning);">
+              <strong>Moderate Stress</strong>
+            </div>
+          </div>
+          <div style="width: 100%; background: var(--gray-200); border-radius: 10px; height: 20px; margin-top: 1rem;">
+            <div style="width: 30%; background: linear-gradient(90deg, var(--success), var(--warning)); height: 100%; border-radius: 10px; transition: width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>👟 Daily Steps</h2>
+          <div style="text-align: center; margin: 1rem 0;">
+            <div style="font-size: 3rem; font-weight: bold; color: var(--primary-color);" id="daily-steps">8,542</div>
+            <div style="font-size: 1rem; color: var(--gray-700);">Steps</div>
+            <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(40, 167, 69, 0.1); border-radius: 8px; color: var(--success);">
+              <strong>Goal Achieved! 🎉</strong>
+            </div>
+          </div>
+          <canvas id="stepsChart" width="300" height="150"></canvas>
+        </div>
+      </div>
+
+      <!-- Weekly Overview Chart -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2>📊 Weekly Health Overview</h2>
+        <div style="height: 400px; position: relative;">
+          <canvas id="weeklyChart" width="800" height="400"></canvas>
+        </div>
+      </div>
+
+      <!-- AI Health Insights -->
+      <div class="card ai-insight" style="margin-top: 2rem;">
+        <h2>🤖 AI Health Insights</h2>
+        <div id="ai-insights" style="line-height: 1.6;">
+          <p><strong>💡 Today's Recommendation:</strong> Your step count is excellent! Consider adding 10 minutes of stretching to complement your activity level.</p>
+          <p><strong>⚠️ Areas to Watch:</strong> Your stress levels have been slightly elevated this week. Try deep breathing exercises or a short walk.</p>
+          <p><strong>🎯 Goals:</strong> You're 85% towards your weekly fitness goal. Keep up the great work!</p>
+        </div>
+      </div>
+
+      <!-- Smartwatch Data Connection -->
+      <div class="card" style="margin-top: 2rem;">
+        <h2>⌚ Device Connection</h2>
+        <div id="smartwatch-data" style="display: flex; align-items: center; gap: 1rem;">
+          <div class="status connected">Connected</div>
+          <span>Apple Watch Series 8</span>
+          <button style="margin-left: auto; padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer;">
+            Sync Data
+          </button>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray-700);">
+          Last synced: 2 minutes ago
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2025 Phillip Chou</span>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</body>    
-</html>
+  <script src="script.js"></script>
+  <script>
+    // Initialize charts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCharts();
+      updateMetrics();
+    });
 
- 
+    function initializeCharts() {
+      // Heart Rate Chart
+      const heartCtx = document.getElementById('heartRateChart').getContext('2d');
+      new Chart(heartCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Heart Rate',
+            data: [68, 72, 75, 70, 73, 69, 74],
+            borderColor: 'rgb(43, 122, 120)',
+            backgroundColor: 'rgba(43, 122, 120, 0.1)',
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 60,
+              max: 85
+            }
+          }
+        }
+      });
+
+      // Sleep Chart
+      const sleepCtx = document.getElementById('sleepChart').getContext('2d');
+      new Chart(sleepCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Sleep Hours',
+            data: [7.2, 8.1, 6.8, 7.5, 7.8, 8.5, 7.9],
+            backgroundColor: 'rgba(58, 175, 169, 0.8)',
+            borderColor: 'rgb(58, 175, 169)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10
+            }
+          }
+        }
+      });
+
+      // Steps Chart
+      const stepsCtx = document.getElementById('stepsChart').getContext('2d');
+      new Chart(stepsCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Daily Steps',
+            data: [6420, 8540, 9200, 7850, 10200, 8850, 8542],
+            borderColor: 'rgb(43, 122, 120)',
+            backgroundColor: 'rgba(43, 122, 120, 0.1)',
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Weekly Overview Chart
+      const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+      new Chart(weeklyCtx, {
+        type: 'radar',
+        data: {
+          labels: ['Steps', 'Sleep Quality', 'Heart Health', 'Nutrition', 'Hydration', 'Stress Management'],
+          datasets: [{
+            label: 'This Week',
+            data: [85, 78, 92, 68, 75, 70],
+            backgroundColor: 'rgba(43, 122, 120, 0.2)',
+            borderColor: 'rgb(43, 122, 120)',
+            borderWidth: 2
+          }, {
+            label: 'Last Week',
+            data: [72, 65, 88, 72, 68, 65],
+            backgroundColor: 'rgba(58, 175, 169, 0.2)',
+            borderColor: 'rgb(58, 175, 169)',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        }
+      });
+    }
+
+    function updateMetrics() {
+      // Simulate real-time data updates
+      setInterval(() => {
+        const heartRate = Math.floor(Math.random() * 10) + 68;
+        document.getElementById('heart-rate').textContent = heartRate;
+        
+        const steps = Math.floor(Math.random() * 1000) + 8000;
+        document.getElementById('daily-steps').textContent = steps.toLocaleString();
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

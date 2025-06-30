@@ -1,39 +1,267 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Health AI Advisor - Sign Up</title>
-<link rel="stylesheet" href="style-2.css">
-
+  <link rel="stylesheet" href="style-2.css">
 </head>
 <body>
 
   <div class="page-container">
     <div class="half-page-bg">
-<img src="VectorArt.png" style="width: 100%;  height: auto;  max-height: 90vh;  object-fit: contain;">
+      <img src="VectorArt.png" style="width: 100%; height: auto; max-height: 90vh; object-fit: contain;" alt="Health AI Illustration">
     </div>
 
     <div class="other-half">
       <header>
-        <h1>Welcome To Health AI Advisor</h1>
+        <h1>🏥 Welcome To Health AI Advisor</h1>
+        <p style="color: #666; font-size: 1.1rem; margin-top: 10px;">Your personal AI-powered health companion</p>
       </header>
 
       <div class="signup-form">
-        <h2>Get started - Create your account</h2>
-        <form action="/signup" method="POST">
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" placeholder="Password" required />
-          <input type="password" name="confirm_password" placeholder="Confirm Password" required />
-          <button type="submit">Sign Up</button>
+        <h2>🚀 Create Your Account</h2>
+        
+        <!-- Success message -->
+        <div id="successMessage" style="display: none; background: linear-gradient(135deg, #d4edda, #c3e6cb); border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 600;">
+          ✅ Account created successfully! Redirecting to login...
+        </div>
+
+        <!-- Error message -->
+        <div id="errorMessage" style="display: none; background: linear-gradient(135deg, #f8d7da, #f5c6cb); border: 1px solid #f5c6cb; color: #721c24; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+          <span id="errorText"></span>
+        </div>
+
+        <form id="signupForm" action="/signup" method="POST">
+          <div class="input-group">
+            <input type="text" id="firstName" name="firstName" placeholder="👤 First Name" required />
+            <span class="error-text" id="firstNameError"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="lastName" name="lastName" placeholder="👤 Last Name" required />
+            <span class="error-text" id="lastNameError"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="email" id="email" name="email" placeholder="📧 Email Address" required />
+            <span class="error-text" id="emailError"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="🔒 Password" required />
+            <div class="password-strength" id="passwordStrength"></div>
+            <span class="error-text" id="passwordError"></span>
+          </div>
+
+          <div class="input-group">
+            <input type="password" id="confirmPassword" name="confirm_password" placeholder="🔒 Confirm Password" required />
+            <span class="error-text" id="confirmPasswordError"></span>
+          </div>
+
+          <div class="input-group">
+            <select id="ageRange" name="ageRange" required>
+              <option value="">🎂 Select Age Range</option>
+              <option value="18-25">18-25 years</option>
+              <option value="26-35">26-35 years</option>
+              <option value="36-45">36-45 years</option>
+              <option value="46-55">46-55 years</option>
+              <option value="56-65">56-65 years</option>
+              <option value="65+">65+ years</option>
+            </select>
+            <span class="error-text" id="ageRangeError"></span>
+          </div>
+
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="terms" name="terms" required />
+              <span class="checkmark"></span>
+              I agree to the <a href="#" style="color: #2a7a2a; text-decoration: underline;">Terms of Service</a> and <a href="#" style="color: #2a7a2a; text-decoration: underline;">Privacy Policy</a>
+            </label>
+            <span class="error-text" id="termsError"></span>
+          </div>
+
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="newsletter" name="newsletter" />
+              <span class="checkmark"></span>
+              📧 Subscribe to health tips and updates
+            </label>
+          </div>
+
+          <button type="submit" id="submitBtn">
+            <span id="btnText">🚀 Create Account</span>
+            <span id="btnLoader" style="display: none;">⏳ Creating Account...</span>
+          </button>
+
+          <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p>Already have an account? <a href="index.html" style="color: #2a7a2a; text-decoration: underline; font-weight: 600;">Sign In</a></p>
+          </div>
         </form>
       </div>
     </div>
   </div>
+
   <footer>
     &copy; 2025 Phillip Chou
   </footer>
-<script src="script-2.js"></script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('signupForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnLoader = document.getElementById('btnLoader');
+
+      // Password strength checker
+      const passwordInput = document.getElementById('password');
+      const strengthIndicator = document.getElementById('passwordStrength');
+
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const strength = checkPasswordStrength(password);
+        updateStrengthIndicator(strength);
+      });
+
+      function checkPasswordStrength(password) {
+        let score = 0;
+        if (password.length >= 8) score++;
+        if (/[a-z]/.test(password)) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[^a-zA-Z0-9]/.test(password)) score++;
+        return score;
+      }
+
+      function updateStrengthIndicator(strength) {
+        const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+        const colors = ['#dc3545', '#fd7e14', '#ffc107', '#20c997', '#28a745'];
+        
+        if (strength > 0) {
+          strengthIndicator.style.display = 'block';
+          strengthIndicator.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+              <span style="font-size: 0.8rem; color: ${colors[strength - 1]};">${labels[strength - 1]}</span>
+              <div style="width: 60%; height: 4px; background: #eee; border-radius: 2px; overflow: hidden;">
+                <div style="width: ${strength * 20}%; height: 100%; background: ${colors[strength - 1]}; transition: all 0.3s ease;"></div>
+              </div>
+            </div>
+          `;
+        } else {
+          strengthIndicator.style.display = 'none';
+        }
+      }
+
+      // Form validation
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (validateForm()) {
+          // Show loading state
+          submitBtn.disabled = true;
+          btnText.style.display = 'none';
+          btnLoader.style.display = 'inline';
+          
+          // Simulate form submission
+          setTimeout(() => {
+            showSuccess();
+            // Redirect after success
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 2000);
+          }, 1500);
+        }
+      });
+
+      function validateForm() {
+        let isValid = true;
+        clearErrors();
+
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const ageRange = document.getElementById('ageRange').value;
+        const terms = document.getElementById('terms').checked;
+
+        if (!firstName) {
+          showError('firstNameError', 'First name is required');
+          isValid = false;
+        }
+
+        if (!lastName) {
+          showError('lastNameError', 'Last name is required');
+          isValid = false;
+        }
+
+        if (!email) {
+          showError('emailError', 'Email is required');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          showError('emailError', 'Please enter a valid email address');
+          isValid = false;
+        }
+
+        if (!password) {
+          showError('passwordError', 'Password is required');
+          isValid = false;
+        } else if (password.length < 8) {
+          showError('passwordError', 'Password must be at least 8 characters long');
+          isValid = false;
+        }
+
+        if (!confirmPassword) {
+          showError('confirmPasswordError', 'Please confirm your password');
+          isValid = false;
+        } else if (password !== confirmPassword) {
+          showError('confirmPasswordError', 'Passwords do not match');
+          isValid = false;
+        }
+
+        if (!ageRange) {
+          showError('ageRangeError', 'Please select your age range');
+          isValid = false;
+        }
+
+        if (!terms) {
+          showError('termsError', 'You must agree to the terms and conditions');
+          isValid = false;
+        }
+
+        return isValid;
+      }
+
+      function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+      }
+
+      function clearErrors() {
+        const errorElements = document.querySelectorAll('.error-text');
+        errorElements.forEach(element => {
+          element.style.display = 'none';
+          element.textContent = '';
+        });
+        hideMessage('errorMessage');
+      }
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function showSuccess() {
+        document.getElementById('successMessage').style.display = 'block';
+        form.style.opacity = '0.7';
+      }
+
+      function hideMessage(messageId) {
+        document.getElementById(messageId).style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

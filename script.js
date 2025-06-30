@@ -14,19 +14,28 @@ function generateAIResponse(email, displayName) {
   return `Hi ${name}, your latest stats show you're improving steadily. Keep hydrating and exercising! 🏋️‍♂️`;
 }
 
-// Show login modal
+// Show login modal with animation
 openModal?.addEventListener("click", () => {
   modal.style.display = "flex";
+  modal.style.opacity = "0";
+  setTimeout(() => {
+    modal.style.opacity = "1";
+  }, 10);
 });
 
-// Close login modal
-closeModal?.addEventListener("click", () => {
-  modal.style.display = "none";
-});
+// Close login modal with animation
+function closeModalWithAnimation() {
+  modal.style.opacity = "0";
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 300);
+}
+
+closeModal?.addEventListener("click", closeModalWithAnimation);
 
 window.addEventListener("click", (e) => {
   if (e.target === modal) {
-    modal.style.display = "none";
+    closeModalWithAnimation();
   }
 });
 
@@ -42,12 +51,26 @@ loginForm?.addEventListener("submit", function (e) {
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("loggedInUser", email);
     sessionStorage.setItem("fromLogin", "true"); // for settings page
-    modal.style.display = "none";
-    updateUI(email);
-    document.getElementById('loginError').style.display = "none";
+
+    // Show success animation
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '✓ Success!';
+    submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+    setTimeout(() => {
+      closeModalWithAnimation();
+      updateUI(email);
+      document.getElementById('loginError').style.display = "none";
+    }, 800);
   } else {
     document.getElementById('loginErrorText').innerText = "Invalid email or password.";
-    document.getElementById('loginError').style.display = "block";
+    const errorDiv = document.getElementById('loginError');
+    errorDiv.style.display = "block";
+    errorDiv.classList.add('shake');
+
+    setTimeout(() => {
+      errorDiv.classList.remove('shake');
+    }, 500);
   }
 });
 
@@ -58,17 +81,19 @@ logoutBtn?.addEventListener("click", () => {
   location.reload();
 });
 
-// Update UI when logged in
+// Update UI when logged in with smooth animations
 function updateUI(email) {
   const prefs = JSON.parse(localStorage.getItem(`prefs_${email}`)) || {};
   const displayName = prefs.displayName || email;
 
   if (welcomeMessage) {
     welcomeMessage.innerText = `Welcome back, ${displayName} 👋`;
+    welcomeMessage.classList.add('fade-in');
   }
 
   if (aiResponse) {
     aiResponse.innerText = generateAIResponse(email, prefs.displayName);
+    aiResponse.classList.add('slide-up');
   }
 
   // Apply dark mode if enabled
@@ -76,12 +101,43 @@ function updateUI(email) {
     document.body.classList.add("dark-mode");
   }
 
-  if (userStats) userStats.style.display = "block";
-  if (openModal) openModal.style.display = "none";
-  if (logoutBtn) logoutBtn.style.display = "inline-block";
+  // Animate elements appearance
+  setTimeout(() => {
+    if (userStats) {
+      userStats.style.display = "block";
+      userStats.classList.add('fade-in');
+    }
+  }, 300);
 
-  // ✅ Show AI section
-  if (aiSection) aiSection.style.display = "block";
+  if (openModal) {
+    openModal.style.opacity = "0";
+    setTimeout(() => {
+      openModal.style.display = "none";
+    }, 300);
+  }
+
+  if (logoutBtn) {
+    logoutBtn.style.display = "inline-block";
+    logoutBtn.classList.add('fade-in');
+  }
+
+  // Show AI section with animation
+  if (aiSection) {
+    setTimeout(() => {
+      aiSection.style.display = "block";
+      aiSection.classList.add('slide-up');
+    }, 150);
+  }
+
+  // Hide home description with animation
+  const homeDesc = document.getElementById('home-description');
+  if (homeDesc) {
+    homeDesc.style.opacity = "0";
+    homeDesc.style.transform = "translateY(-20px)";
+    setTimeout(() => {
+      homeDesc.style.display = "none";
+    }, 300);
+  }
 }
 
 // AI message responder (use your real API endpoint)
@@ -110,7 +166,7 @@ window.addEventListener("load", () => {
     updateUI(email);
   }
 
-  // AI input handler
+  // AI input handler with enhanced UX
   const aiSubmit = document.getElementById("ai-submit");
   const aiPrompt = document.getElementById("ai-prompt");
 
@@ -119,13 +175,48 @@ window.addEventListener("load", () => {
       const prompt = aiPrompt.value.trim();
       if (!prompt) {
         aiResponse.innerText = "Please enter a prompt.";
+        aiResponse.style.borderColor = "#dc3545";
+        setTimeout(() => {
+          aiResponse.style.borderColor = "#dee2e6";
+        }, 2000);
         return;
       }
 
-      aiResponse.innerText = "Thinking… 🤖";
-      const answer = await getGeminiResponse(prompt);
-      aiResponse.innerText = answer;
+      // Show loading state
+      const originalBtnText = aiSubmit.innerHTML;
+      aiSubmit.innerHTML = '<span class="loading">Thinking...</span>';
+      aiSubmit.disabled = true;
+      aiSubmit.style.opacity = "0.7";
+
+      aiResponse.innerText = "🤖 Processing your request...";
+      aiResponse.classList.add('loading');
+
+      try {
+        const answer = await getGeminiResponse(prompt);
+        aiResponse.classList.remove('loading');
+        aiResponse.innerText = answer;
+        aiResponse.classList.add('fade-in');
+
+        // Clear prompt after successful response
+        aiPrompt.value = '';
+      } catch (error) {
+        aiResponse.classList.remove('loading');
+        aiResponse.innerText = "❌ Sorry, there was an error processing your request. Please try again.";
+        aiResponse.style.borderColor = "#dc3545";
+      } finally {
+        // Reset button state
+        aiSubmit.innerHTML = originalBtnText;
+        aiSubmit.disabled = false;
+        aiSubmit.style.opacity = "1";
+      }
+    });
+
+    // Allow Enter key to submit
+    aiPrompt.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        aiSubmit.click();
+      }
     });
   }
 });
-
