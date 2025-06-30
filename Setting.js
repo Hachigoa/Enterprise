@@ -2,10 +2,18 @@ window.addEventListener("load", () => {
   const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
   if (!isLoggedIn) {
-    alert("You must be logged in to access settings.");
-    window.location.href = "index.html";
+    // Show not-logged-in message instead of alert
+    const notLoggedInMsg = document.getElementById('not-logged-in-message');
+    const settingsContainer = document.getElementById('settings-container');
+    
+    if (notLoggedInMsg) notLoggedInMsg.style.display = 'block';
+    if (settingsContainer) settingsContainer.style.display = 'none';
     return;
   }
+
+  // Hide not-logged-in message if user is logged in
+  const notLoggedInMsg = document.getElementById('not-logged-in-message');
+  if (notLoggedInMsg) notLoggedInMsg.style.display = 'none';
 
     // Clear flag for future visits
   sessionStorage.removeItem("fromLogin");

@@ -42,6 +42,14 @@
   <main>
     <h2>User Settings</h2>
     
+    <div id="not-logged-in-message" style="display: none; text-align: center; padding: 2rem; background: rgba(255, 193, 7, 0.1); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.3);">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🔒 Login Required</h3>
+      <p style="margin-bottom: 1.5rem;">Please log in to access your settings and customize your experience.</p>
+      <button onclick="window.location.href='index.html'" style="background: var(--gradient-primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer;">
+        Go to Login
+      </button>
+    </div>
+    
     <div id="settings-container">
       <label for="displayName">Display Name:</label>
       <input type="text" id="displayName" placeholder="Enter your display name" />
