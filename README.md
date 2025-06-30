@@ -40,33 +40,7 @@ A modern, AI-powered health companion web application that provides personalized
 - **Gemini AI API**: External AI service for health recommendations
 - **RESTful API**: Clean API design for AI interactions
 
-## 📁 Project Structure
 
-```
-health-ai-advisor/
-├── 📄 index.html          # Main dashboard page
-├── 📄 Setting.html        # User settings page
-├── 📄 Setting.js          # Settings page functionality
-├── 📄 Insight.html        # Health insights and analytics
-├── 📄 Signup.html         # User registration page
-├── 📄 script.js           # Main application logic
-├── 📄 style.css           # Application styles
-├── 📄 Index.js            # Node.js server
-├── 📄 Data.js             # Data handling utilities
-├── 📄 package.json        # Node.js dependencies
-├── 📄 .replit             # Replit configuration
-└── 🖼️ assets/             # Images and static files
-    ├── close.png          # Modal close icon
-    ├── VectorArt.png      # Application logo
-    └── image_*.png        # Additional graphics
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 20+ (included in Replit environment)
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Internet connection for AI features
 
 ### Installation & Setup
 
@@ -291,7 +265,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- **Replit**: For hosting and development environment
 - **Google Fonts**: For the Inter font family
 - **Gemini AI**: For intelligent health recommendations
 - **Chart.js**: For data visualization capabilities
