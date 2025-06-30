@@ -195,20 +195,6 @@ async function getHealthAdvice(prompt) {
 - ✅ Edge 90+
 - ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-## 🚀 Deployment
-
-### Replit Deployment
-The application is configured for Replit with:
-- **Automatic deployment**: Configured in `.replit` file
-- **Port forwarding**: Port 5000 mapped to web access
-- **Workflow setup**: "Start Health AI Server" workflow for easy running
-
-### Production Considerations
-- **SSL/HTTPS**: Ensure secure connections in production
-- **API Rate Limiting**: Implement rate limiting for AI endpoints
-- **Error Monitoring**: Add comprehensive error tracking
-- **Performance Optimization**: Implement caching and optimization
-
 ## 🔧 Troubleshooting
 
 ### Common Issues
@@ -253,7 +239,6 @@ if (DEBUG_MODE) console.log('Debug information...');
 - Follow semantic HTML practices
 - Use modern JavaScript features (ES6+)
 - Maintain accessibility standards
-- Document new features thoroughly
 
 ## 📄 License
 
