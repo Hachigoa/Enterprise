@@ -37,7 +37,7 @@
       </form>
     </div>
   </div>
- 
+
   <div class="container">
     <div style="text-align: center; margin: 2rem 0;">
       <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 0.5rem;">📈 Health Insights</h1>
@@ -140,46 +140,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
   <script>
-
-      function isLoggedIn() {
-      return sessionStorage.getItem('loggedIn') === 'true';
-    }
-
-    function updateVisibility() {
-      const loginBtn = document.getElementById('openModal');
-      const logoutBtn = document.getElementById('logoutBtn');
-
-      if (isLoggedIn()) {
-        if(loginBtn) loginBtn.style.display = 'none';
-        if(logoutBtn) logoutBtn.style.display = '';
-      } else {
-        if(loginBtn) loginBtn.style.display = '';
-        if(logoutBtn) logoutBtn.style.display = 'none';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      updateVisibility();
-
-      const loginForm = document.getElementById('loginForm');
-      if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          sessionStorage.setItem('loggedIn', 'true');
-          updateVisibility();
-          document.getElementById('loginModal').style.display = 'none';
-        });
-      }
-
-      const logoutBtn = document.getElementById('logoutBtn');
-      if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-          sessionStorage.removeItem('loggedIn');
-          updateVisibility();
-        });
-      }
-    });
-    
     // Initialize charts when page loads
     document.addEventListener('DOMContentLoaded', function() {
       initializeCharts();
