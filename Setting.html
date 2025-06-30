@@ -13,27 +13,27 @@
     <!-- Nav -->
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html">Dashboard</a></li>
-        <li><a href="Insight.html">Insights</a></li>
-        <li><a href="Setting.html">Settings</a></li>
-          </ul>
-      <button class="login-btn" id="openModal">Login</button>
-      <button class="logout-btn" id="logoutBtn" style="display:none;">Logout</button>
+         <li><a href="index.html">📊 Dashboard</a></li>
+        <li><a href="Insight.html">💡 Insights</a></li>
+        <li><a href="Setting.html">⚙️ Settings</a></li>
+      </ul>
+      <button class="login-btn" id="openModal">🔑 Login</button>
+      <button class="logout-btn" id="logoutBtn" style="display:none;">🚪 Logout</button>
     </nav>
   </header>
 
-  <div class="modal" id="loginModal">
+<div class="modal" id="loginModal">
     <div class="modal-backdrop"></div>
     <div class="modal-content">
       <img src="close.png" alt="Close" class="close" id="closeModal" />
-      <h2>Login In</h2>
+      <h2>🔐 Login</h2>
       <form id="loginForm" action="#" method="POST">
-        <input type="text" name="email" placeholder="Email" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <input type="email" name="email" placeholder="📧 Email" required />
+        <input type="password" name="password" placeholder="🔒 Password" required />
+        <button type="submit">🚀 Login</button>
         <p>
           Don't have an account?
-          <a href="Signup.html" style="color: black; text-decoration: underline; display: inline;">Sign Up</a>
+          <a href="Signup.html" style="color: var(--primary-color); text-decoration: underline; font-weight: 600;">Create Account</a>
         </p>
       </form>
     </div>
