@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Load API Key from environment variables
 const apiKey = process.env.API_KEY;
@@ -54,6 +54,6 @@ app.post("/ask", async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at http://0.0.0.0:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
