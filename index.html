@@ -6,6 +6,13 @@
   <title>Health AI Advisor</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  <div id="home-description" style="padding: 30px; text-align: center;">
+  <h2>Welcome to Health Advisor!</h2>
+  <p>
+    This platform helps you track, analyze, and improve your health using AI insights.<br>
+    Please log in to access your personalized dashboard.
+  </p>
+</div>
 <body>
   <header>
     <h1>Health Advisor</h1>
@@ -131,6 +138,55 @@
   </div>
 </div>
 
+  <script>
+  function isLoggedIn() {
+    return sessionStorage.getItem('loggedIn') === 'true';
+  }
+
+  function updateVisibility() {
+    const homeDesc = document.getElementById('home-description');
+    const aiSection = document.getElementById('ai-section');
+    const userStats = document.getElementById('user-stats');
+    const loginBtn = document.getElementById('openModal');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (isLoggedIn()) {
+      if(homeDesc) homeDesc.style.display = 'none';
+      if(aiSection) aiSection.style.display = '';
+      if(userStats) userStats.style.display = '';
+      if(loginBtn) loginBtn.style.display = 'none';
+      if(logoutBtn) logoutBtn.style.display = '';
+    } else {
+      if(homeDesc) homeDesc.style.display = '';
+      if(aiSection) aiSection.style.display = 'none';
+      if(userStats) userStats.style.display = 'none';
+      if(loginBtn) loginBtn.style.display = '';
+      if(logoutBtn) logoutBtn.style.display = 'none';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateVisibility();
+
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        sessionStorage.setItem('loggedIn', 'true');
+        updateVisibility();
+        document.getElementById('loginModal').style.display = 'none';
+      });
+    }
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function() {
+        sessionStorage.removeItem('loggedIn');
+        updateVisibility();
+      });
+    }
+  });
+</script>
 
  <footer>
    &copy; 2025 Phillip Chou
