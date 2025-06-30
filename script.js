@@ -44,8 +44,10 @@ loginForm?.addEventListener("submit", function (e) {
     sessionStorage.setItem("fromLogin", "true"); // for settings page
     modal.style.display = "none";
     updateUI(email);
+    document.getElementById('loginError').style.display = "none";
   } else {
-    alert("Invalid email or password.");
+    document.getElementById('loginErrorText').innerText = "Invalid email or password.";
+    document.getElementById('loginError').style.display = "block";
   }
 });
 
