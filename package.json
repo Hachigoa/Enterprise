@@ -1,0 +1,17 @@
+{
+  "name": "enterprise-app",
+  "version": "1.0.0",
+  "description": "Node.js AI server for Hachigoa/Enterprise",
+  "main": "Index.js",
+  "scripts": {
+    "start": "node Index.js",
+    "smoke-test": "node -e \"require('./Index.js'); console.log('Loaded OK'); process.exit(0)\""
+  },
+  "author": "Hachiman",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
