@@ -51,19 +51,211 @@
     </div>
     
     <div id="settings-container">
-      <label for="displayName">Display Name:</label>
-      <input type="text" id="displayName" placeholder="Enter your display name" />
+      <div class="settings-section">
+        <h3>👤 Profile Settings</h3>
+        <div class="setting-item">
+          <label for="displayName">Display Name:</label>
+          <input type="text" id="displayName" placeholder="Enter your display name" />
+        </div>
+        
+        <div class="setting-item">
+          <label for="emailAddress">Email Address:</label>
+          <input type="email" id="emailAddress" placeholder="your@email.com" readonly />
+          <small>Email cannot be changed</small>
+        </div>
+      </div>
 
-      <label>
-        <input type="checkbox" id="darkModeToggle" />
-        Enable Dark Mode
-      </label>
+      <div class="settings-section">
+        <h3>🎨 Appearance</h3>
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="darkModeToggle" />
+            Enable Dark Mode
+          </label>
+        </div>
+        
+        <div class="setting-item">
+          <label for="themeColor">Theme Color:</label>
+          <select id="themeColor">
+            <option value="default">Default Blue</option>
+            <option value="green">Green</option>
+            <option value="purple">Purple</option>
+            <option value="orange">Orange</option>
+          </select>
+        </div>
+      </div>
 
-      <button id="saveBtn">Save Settings</button>
+      <div class="settings-section">
+        <h3>🔔 Notifications</h3>
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="healthReminders" />
+            Health Reminders
+          </label>
+        </div>
+        
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="dailyTips" />
+            Daily Health Tips
+          </label>
+        </div>
+        
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="goalNotifications" />
+            Goal Achievement Notifications
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>🎯 Health Goals</h3>
+        <div class="setting-item">
+          <label for="dailySteps">Daily Steps Goal:</label>
+          <input type="number" id="dailySteps" min="1000" max="50000" placeholder="10000" />
+        </div>
+        
+        <div class="setting-item">
+          <label for="sleepGoal">Sleep Goal (hours):</label>
+          <input type="number" id="sleepGoal" min="4" max="12" step="0.5" placeholder="8" />
+        </div>
+        
+        <div class="setting-item">
+          <label for="waterGoal">Daily Water Goal (glasses):</label>
+          <input type="number" id="waterGoal" min="4" max="16" placeholder="8" />
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>📊 Data & Privacy</h3>
+        <div class="setting-item">
+          <label>
+            <input type="checkbox" id="dataSharing" />
+            Allow anonymous health data sharing for research
+          </label>
+        </div>
+        
+        <div class="setting-item">
+          <label for="dataRetention">Data Retention Period:</label>
+          <select id="dataRetention">
+            <option value="1month">1 Month</option>
+            <option value="3months">3 Months</option>
+            <option value="6months">6 Months</option>
+            <option value="1year">1 Year</option>
+            <option value="forever">Forever</option>
+          </select>
+        </div>
+        
+        <div class="setting-item">
+          <button id="exportDataBtn" class="secondary-btn">📁 Export My Data</button>
+          <button id="deleteDataBtn" class="danger-btn">🗑️ Delete All Data</button>
+        </div>
+      </div>
+
+      <div class="settings-actions">
+        <button id="saveBtn" class="primary-btn">💾 Save Settings</button>
+        <button id="resetBtn" class="secondary-btn">🔄 Reset to Defaults</button>
+      </div>
     </div>
   </main>
 
   <footer>&copy; 2025 Phillip Chou</footer>
+
+  <style>
+    .settings-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      border: 1px solid rgba(43, 122, 120, 0.1);
+    }
+
+    .settings-section h3 {
+      margin: 0 0 1rem 0;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .setting-item {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .setting-item label {
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .setting-item input, .setting-item select {
+      padding: 0.75rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .setting-item input:focus, .setting-item select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .setting-item small {
+      color: var(--gray-500);
+      font-size: 0.85rem;
+    }
+
+    .settings-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn, .secondary-btn, .danger-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .secondary-btn {
+      background: var(--gray-200);
+      color: var(--gray-700);
+    }
+
+    .danger-btn {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white;
+    }
+
+    .primary-btn:hover, .secondary-btn:hover, .danger-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      .settings-actions {
+        flex-direction: column;
+      }
+      
+      .primary-btn, .secondary-btn, .danger-btn {
+        width: 100%;
+      }
+    }
+  </style>
 
   <script>
     function isLoggedIn() {
