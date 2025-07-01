@@ -142,18 +142,38 @@ function updateUI(email) {
 
 // AI message responder (use your real API endpoint)
 async function getGeminiResponse(prompt) {
+  const primaryURL = "https://enterprise-zc5x.onrender.com/ask";
+  const fallbackURL = "https://hosting-8pdm.onrender.com/ask";
+
   try {
-    const res = await fetch("https://enterprise-zc5x.onrender.com/ask", {
+    const res = await fetch(primaryURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt })
     });
 
+    if (!res.ok) throw new Error("Primary server failed");
+
     const data = await res.json();
     return data.answer || "No answer returned.";
-  } catch (err) {
-    console.error("Error talking to AI:", err);
-    return "AI error. Try again.";
+  } catch (error) {
+    console.warn("Primary server error, trying fallback...", error);
+
+    try {
+      const fallbackRes = await fetch(fallbackURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+
+      if (!fallbackRes.ok) throw new Error("Fallback server failed");
+
+      const data = await fallbackRes.json();
+      return data.answer || "No answer returned.";
+    } catch (fallbackError) {
+      console.error("Both servers failed:", fallbackError);
+      return "⚠️ AI is currently unavailable. Please try again later.";
+    }
   }
 }
 
