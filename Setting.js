@@ -1,5 +1,5 @@
 window.addEventListener("load", () => {
-  const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
   if (!isLoggedIn) {
     // Show not-logged-in message instead of alert
@@ -19,7 +19,8 @@ window.addEventListener("load", () => {
   sessionStorage.removeItem("fromLogin");
 
   // Load user preferences
-  const prefs = JSON.parse(localStorage.getItem('userPrefs')) || {};
+  const loggedInUser = localStorage.getItem('loggedInUser');
+  const prefs = JSON.parse(localStorage.getItem(`prefs_${loggedInUser}`)) || {};
 
   // Set display name field
   const displayNameInput = document.getElementById("displayName");
@@ -42,7 +43,7 @@ window.addEventListener("load", () => {
       darkMode: darkModeToggle?.checked || false,
     };
 
-    localStorage.setItem('userPrefs', JSON.stringify(newPrefs));
+    localStorage.setItem(`prefs_${loggedInUser}`, JSON.stringify(newPrefs));
 
     if (newPrefs.darkMode) {
       document.body.classList.add("dark-mode");
@@ -64,7 +65,8 @@ window.addEventListener("load", () => {
   // Logout button
   const logoutBtn = document.getElementById("logoutBtn");
   logoutBtn?.addEventListener("click", () => {
-    sessionStorage.removeItem('loggedIn');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('loggedInUser');
     window.location.href = "index.html";
   });
 });

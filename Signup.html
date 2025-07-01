@@ -187,7 +187,47 @@
         const terms = document.getElementById('terms').checked;
 
         if (!firstName) {
-          showError('firstNameError', 'First name is required');
+          showError('firstName', 'First name is required');
+          isValid = false;
+        }
+
+        if (!lastName) {
+          showError('lastName', 'Last name is required');
+          isValid = false;
+        }
+
+        if (!email) {
+          showError('email', 'Email is required');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          showError('email', 'Please enter a valid email address');
+          isValid = false;
+        }
+
+        if (!password) {
+          showError('password', 'Password is required');
+          isValid = false;
+        } else if (password.length < 8) {
+          showError('password', 'Password must be at least 8 characters');
+          isValid = false;
+        }
+
+        if (password !== confirmPassword) {
+          showError('confirmPassword', 'Passwords do not match');
+          isValid = false;
+        }
+
+        if (!ageRange) {
+          showError('ageRange', 'Please select your age range');
+          isValid = false;
+        }
+
+        if (!terms) {
+          showError('terms', 'You must accept the terms and conditions');
+          isValid = false;
+        }
+
+        return isValid;Error', 'First name is required');
           isValid = false;
         }
 
@@ -256,6 +296,18 @@
       function showSuccess() {
         document.getElementById('successMessage').style.display = 'block';
         form.style.opacity = '0.7';
+      }
+
+      function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const errorElement = field.parentElement.querySelector('.error-text') || 
+                           field.parentElement.appendChild(document.createElement('div'));
+        errorElement.className = 'error-text';
+        errorElement.style.color = '#dc3545';
+        errorElement.style.fontSize = '0.875rem';
+        errorElement.style.marginTop = '0.25rem';
+        errorElement.style.display = 'block';
+        errorElement.textContent = message;
       }
 
       function hideMessage(messageId) {
