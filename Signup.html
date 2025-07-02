@@ -163,14 +163,43 @@
           btnText.style.display = 'none';
           btnLoader.style.display = 'inline';
           
-          // Simulate form submission
-          setTimeout(() => {
-            showSuccess();
-            // Redirect after success
-            setTimeout(() => {
-              window.location.href = 'index.html';
-            }, 2000);
-          }, 1500);
+          // Submit form to backend
+          const formData = new FormData(form);
+          
+          fetch('/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              firstName: formData.get('firstName'),
+              lastName: formData.get('lastName'),
+              email: formData.get('email'),
+              password: formData.get('password'),
+              ageRange: formData.get('ageRange'),
+              terms: formData.get('terms') === 'on',
+              newsletter: formData.get('newsletter') === 'on'
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              showSuccess();
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 2000);
+            } else {
+              throw new Error(data.message || 'Signup failed');
+            }
+          })
+          .catch(error => {
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorText').textContent = error.message;
+            // Reset button state
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+          });
         }
       });
 
@@ -227,56 +256,16 @@
           isValid = false;
         }
 
-        return isValid;Error', 'First name is required');
-          isValid = false;
-        }
-
-        if (!lastName) {
-          showError('lastNameError', 'Last name is required');
-          isValid = false;
-        }
-
-        if (!email) {
-          showError('emailError', 'Email is required');
-          isValid = false;
-        } else if (!isValidEmail(email)) {
-          showError('emailError', 'Please enter a valid email address');
-          isValid = false;
-        }
-
-        if (!password) {
-          showError('passwordError', 'Password is required');
-          isValid = false;
-        } else if (password.length < 8) {
-          showError('passwordError', 'Password must be at least 8 characters long');
-          isValid = false;
-        }
-
-        if (!confirmPassword) {
-          showError('confirmPasswordError', 'Please confirm your password');
-          isValid = false;
-        } else if (password !== confirmPassword) {
-          showError('confirmPasswordError', 'Passwords do not match');
-          isValid = false;
-        }
-
-        if (!ageRange) {
-          showError('ageRangeError', 'Please select your age range');
-          isValid = false;
-        }
-
-        if (!terms) {
-          showError('termsError', 'You must agree to the terms and conditions');
-          isValid = false;
-        }
-
         return isValid;
       }
 
-      function showError(elementId, message) {
-        const errorElement = document.getElementById(elementId);
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
+      function showError(fieldId, message) {
+        const errorElementId = fieldId + 'Error';
+        const errorElement = document.getElementById(errorElementId);
+        if (errorElement) {
+          errorElement.textContent = message;
+          errorElement.style.display = 'block';
+        }
       }
 
       function clearErrors() {
@@ -296,18 +285,6 @@
       function showSuccess() {
         document.getElementById('successMessage').style.display = 'block';
         form.style.opacity = '0.7';
-      }
-
-      function showError(fieldId, message) {
-        const field = document.getElementById(fieldId);
-        const errorElement = field.parentElement.querySelector('.error-text') || 
-                           field.parentElement.appendChild(document.createElement('div'));
-        errorElement.className = 'error-text';
-        errorElement.style.color = '#dc3545';
-        errorElement.style.fontSize = '0.875rem';
-        errorElement.style.marginTop = '0.25rem';
-        errorElement.style.display = 'block';
-        errorElement.textContent = message;
       }
 
       function hideMessage(messageId) {
