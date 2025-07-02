@@ -153,8 +153,8 @@
         }
       }
 
-      // Form validation
-      form.addEventListener('submit', function(e) {
+      // Form validation and submission
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         if (validateForm()) {
@@ -163,14 +163,43 @@
           btnText.style.display = 'none';
           btnLoader.style.display = 'inline';
           
-          // Simulate form submission
-          setTimeout(() => {
-            showSuccess();
-            // Redirect after success
-            setTimeout(() => {
-              window.location.href = 'index.html';
-            }, 2000);
-          }, 1500);
+          try {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            const response = await fetch('/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+              // Save to localStorage (demo purposes)
+              const users = JSON.parse(localStorage.getItem('users') || '{}');
+              users[data.email] = { password: data.password };
+              localStorage.setItem('users', JSON.stringify(users));
+              
+              showSuccess();
+              // Redirect after success
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 2000);
+            } else {
+              showErrorMessage(result.error || 'Signup failed. Please try again.');
+            }
+          } catch (error) {
+            console.error('Signup error:', error);
+            showErrorMessage('Network error. Please try again.');
+          } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+          }
         }
       });
 
@@ -187,96 +216,58 @@
         const terms = document.getElementById('terms').checked;
 
         if (!firstName) {
-          showError('firstName', 'First name is required');
+          showFieldError('firstNameError', 'First name is required');
           isValid = false;
         }
 
         if (!lastName) {
-          showError('lastName', 'Last name is required');
+          showFieldError('lastNameError', 'Last name is required');
           isValid = false;
         }
 
         if (!email) {
-          showError('email', 'Email is required');
+          showFieldError('emailError', 'Email is required');
           isValid = false;
         } else if (!isValidEmail(email)) {
-          showError('email', 'Please enter a valid email address');
+          showFieldError('emailError', 'Please enter a valid email address');
           isValid = false;
         }
 
         if (!password) {
-          showError('password', 'Password is required');
+          showFieldError('passwordError', 'Password is required');
           isValid = false;
         } else if (password.length < 8) {
-          showError('password', 'Password must be at least 8 characters');
-          isValid = false;
-        }
-
-        if (password !== confirmPassword) {
-          showError('confirmPassword', 'Passwords do not match');
-          isValid = false;
-        }
-
-        if (!ageRange) {
-          showError('ageRange', 'Please select your age range');
-          isValid = false;
-        }
-
-        if (!terms) {
-          showError('terms', 'You must accept the terms and conditions');
-          isValid = false;
-        }
-
-        return isValid;Error', 'First name is required');
-          isValid = false;
-        }
-
-        if (!lastName) {
-          showError('lastNameError', 'Last name is required');
-          isValid = false;
-        }
-
-        if (!email) {
-          showError('emailError', 'Email is required');
-          isValid = false;
-        } else if (!isValidEmail(email)) {
-          showError('emailError', 'Please enter a valid email address');
-          isValid = false;
-        }
-
-        if (!password) {
-          showError('passwordError', 'Password is required');
-          isValid = false;
-        } else if (password.length < 8) {
-          showError('passwordError', 'Password must be at least 8 characters long');
+          showFieldError('passwordError', 'Password must be at least 8 characters long');
           isValid = false;
         }
 
         if (!confirmPassword) {
-          showError('confirmPasswordError', 'Please confirm your password');
+          showFieldError('confirmPasswordError', 'Please confirm your password');
           isValid = false;
         } else if (password !== confirmPassword) {
-          showError('confirmPasswordError', 'Passwords do not match');
+          showFieldError('confirmPasswordError', 'Passwords do not match');
           isValid = false;
         }
 
         if (!ageRange) {
-          showError('ageRangeError', 'Please select your age range');
+          showFieldError('ageRangeError', 'Please select your age range');
           isValid = false;
         }
 
         if (!terms) {
-          showError('termsError', 'You must agree to the terms and conditions');
+          showFieldError('termsError', 'You must agree to the terms and conditions');
           isValid = false;
         }
 
         return isValid;
       }
 
-      function showError(elementId, message) {
+      function showFieldError(elementId, message) {
         const errorElement = document.getElementById(elementId);
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
+        if (errorElement) {
+          errorElement.textContent = message;
+          errorElement.style.display = 'block';
+        }
       }
 
       function clearErrors() {
@@ -298,16 +289,11 @@
         form.style.opacity = '0.7';
       }
 
-      function showError(fieldId, message) {
-        const field = document.getElementById(fieldId);
-        const errorElement = field.parentElement.querySelector('.error-text') || 
-                           field.parentElement.appendChild(document.createElement('div'));
-        errorElement.className = 'error-text';
-        errorElement.style.color = '#dc3545';
-        errorElement.style.fontSize = '0.875rem';
-        errorElement.style.marginTop = '0.25rem';
-        errorElement.style.display = 'block';
-        errorElement.textContent = message;
+      function showErrorMessage(message) {
+        const errorDiv = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        errorText.textContent = message;
+        errorDiv.style.display = 'block';
       }
 
       function hideMessage(messageId) {
