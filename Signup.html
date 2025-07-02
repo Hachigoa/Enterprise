@@ -33,7 +33,7 @@
           <span id="errorText"></span>
         </div>
 
-        <form id="signupForm" action="/signup" method="POST">
+        <form id="signupForm">
           <div class="input-group">
             <input type="text" id="firstName" name="firstName" placeholder="👤 First Name" required />
             <span class="error-text" id="firstNameError"></span>
@@ -175,21 +175,26 @@
               body: JSON.stringify(data)
             });
 
-            const result = await response.json();
-            
-            if (result.success) {
-              // Save to localStorage (demo purposes)
-              const users = JSON.parse(localStorage.getItem('users') || '{}');
-              users[data.email] = { password: data.password };
-              localStorage.setItem('users', JSON.stringify(users));
+            if (response.ok) {
+              const result = await response.json();
               
-              showSuccess();
-              // Redirect after success
-              setTimeout(() => {
-                window.location.href = 'index.html';
-              }, 2000);
+              if (result.success) {
+                // Save to localStorage (demo purposes)
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                users[data.email] = { password: data.password };
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                showSuccess();
+                // Redirect after success
+                setTimeout(() => {
+                  window.location.href = 'index.html';
+                }, 2000);
+              } else {
+                showErrorMessage(result.error || 'Signup failed. Please try again.');
+              }
             } else {
-              showErrorMessage(result.error || 'Signup failed. Please try again.');
+              const errorData = await response.json().catch(() => ({}));
+              showErrorMessage(errorData.error || `Server error: ${response.status}`);
             }
           } catch (error) {
             console.error('Signup error:', error);

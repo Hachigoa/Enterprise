@@ -20,15 +20,37 @@ app.get("/", (req, res) => {
 
 // Handle signup form submission
 app.post("/signup", (req, res) => {
+  console.log("Signup request received:", req.body);
+
   const { firstName, lastName, email, password, ageRange, terms, newsletter } = req.body;
-  
+
   // Basic validation
   if (!firstName || !lastName || !email || !password || !ageRange || !terms) {
+    console.log("Validation failed - missing required fields");
     return res.status(400).json({ 
       success: false, 
       error: "All required fields must be filled" 
     });
   }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ 
+      success: false, 
+      error: "Please enter a valid email address" 
+    });
+  }
+
+  // Password validation
+  if (password.length < 8) {
+    return res.status(400).json({ 
+      success: false, 
+      error: "Password must be at least 8 characters long" 
+    });
+  }
+
+  console.log("Signup successful for:", email);
 
   // In a real app, you'd save to a database
   // For now, just return success
