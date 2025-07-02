@@ -235,7 +235,10 @@
       const logoutBtn = document.getElementById('logoutBtn');
       if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
-          sessionStorage.removeItem('loggedIn');
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('loggedInUser');
+          updateVisibility();
+        });m('loggedIn');
           updateVisibility();
         });
       }

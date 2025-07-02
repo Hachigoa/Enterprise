@@ -16,23 +16,19 @@ function generateAIResponse(email, displayName) {
 
 // Show login modal with animation
 openModal?.addEventListener("click", () => {
-  if (modal) {
-    modal.style.display = "flex";
-    modal.style.opacity = "0";
-    setTimeout(() => {
-      if (modal) modal.style.opacity = "1";
-    }, 10);
-  }
+  modal.style.display = "flex";
+  modal.style.opacity = "0";
+  setTimeout(() => {
+    modal.style.opacity = "1";
+  }, 10);
 });
 
 // Close login modal with animation
 function closeModalWithAnimation() {
-  if (modal) {
-    modal.style.opacity = "0";
-    setTimeout(() => {
-      if (modal) modal.style.display = "none";
-    }, 300);
-  }
+  modal.style.opacity = "0";
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 300);
 }
 
 closeModal?.addEventListener("click", closeModalWithAnimation);

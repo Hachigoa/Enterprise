@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Load API Key from environment variables
-const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+const apiKey = process.env.API_KEY;
 
 app.use(cors());
 app.use(express.json());
@@ -54,49 +54,6 @@ app.post("/ask", async (req, res) => {
   }
 });
 
-// Signup endpoint
-app.post('/signup', (req, res) => {
-  try {
-    const { firstName, lastName, email, password, ageRange, terms, newsletter } = req.body;
-
-    // Basic validation
-    if (!firstName || !lastName || !email || !password || !ageRange || !terms) {
-      return res.status(400).json({
-        success: false,
-        message: 'All required fields must be filled'
-      });
-    }
-
-    if (password.length < 8) {
-      return res.status(400).json({
-        success: false,
-        message: 'Password must be at least 8 characters long'
-      });
-    }
-
-    // In a real application, you would:
-    // 1. Hash the password
-    // 2. Check if email already exists
-    // 3. Save to database
-    // For now, we'll just simulate success
-
-    console.log('New user signup:', { firstName, lastName, email, ageRange, newsletter });
-
-    res.json({
-      success: true,
-      message: 'Account created successfully'
-    });
-
-  } catch (error) {
-    console.error('Signup error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Internal server error'
-    });
-  }
-});
-
-// Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running at http://0.0.0.0:${PORT}`);
 });
